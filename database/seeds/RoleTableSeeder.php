@@ -18,6 +18,7 @@ class RoleTableSeeder extends Seeder
         Role::create(['nama_role' => 'management']);
         Role::create(['nama_role' => 'presales']);
         Role::create(['nama_role' => 'PM']);
+        Role::create(['nama_role' => 'Administrator']);
         
     }
 }
