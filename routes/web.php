@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/home', function () {
-    return view('home');
+Route::get('/', function () {
+    return redirect('/home');
 });
 
 Route::get('/cogs/index2', 'CogsController@index');
 Route::get('/cogs/pages', 'CogsController@page');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
