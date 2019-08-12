@@ -1,92 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="{{asset('admin/images/favicon.ico')}}" type="image/ico" />
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Ecommerce Dashboard &mdash; Stisla</title>
 
-    <title>CashFlow | MIB </title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <!-- Bootstrap -->
-    <link href="{{asset('admin/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{asset('admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{asset('admin/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="{{asset('admin/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
-	
-    <!-- bootstrap-progressbar -->
-    <link href="{{asset('admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="{{asset('admin/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="{{asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/jqvmap/dist/jqvmap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/summernote/dist/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/owl.carousel/dist/assets/owl.carousel.min.css')}}">
+  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css')}}">
 
-    <!-- Custom Theme Style -->
-    <link href="{{asset('admin/build/css/custom.css')}}" rel="stylesheet">
-  </head>
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{asset('stisla/assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('stisla/assets/css/components.css')}}">
+</head>
 
-  <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-          <!-- SIDE-BAR -->
-        @include('layouts.includes._sidebar')
-        <!-- SIDE-BAR -->
+<body>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+       <!-- Navbar -->
+       @include('layouts.includes._navbar')
+      <!-- End Navbar -->
 
-        <!-- top navigation -->
-        @include('layouts.includes._navbar')
-        <!-- /top navigation -->
+      <!-- Side Bar -->
+      @include('layouts.includes._sidebar')
+      <!-- End Side Bar -->
 
-        <!-- page content -->
-        @yield('content')
-        <!-- /page content -->
+      <div class="main-content">
+      @yield('content')
       </div>
+
+      @include('layouts.includes._footer')
     </div>
+  </div>
 
-    <!-- jQuery -->
-    <script src="{{asset('admin/vendors/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap -->
-    <script src="{{asset('admin/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{asset('admin/vendors/fastclick/lib/fastclick.js')}}"></script>
-    <!-- NProgress -->
-    <script src="{{asset('admin/vendors/nprogress/nprogress.js')}}"></script>
-    <!-- Chart.js -->
-    <script src="{{asset('admin/vendors/Chart.js/dist/Chart.min.js')}}"></script>
-    <!-- gauge.js -->
-    <script src="{{asset('admin/vendors/gauge.js/dist/gauge.min.js')}}"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="{{asset('admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-    <!-- iCheck -->
-    <script src="{{asset('admin/vendors/iCheck/icheck.min.js')}}"></script>
-    <!-- Skycons -->
-    <script src="{{asset('admin/vendors/skycons/skycons.js')}}"></script>
-    <!-- Flot -->
-    <script src="{{asset('admin/vendors/Flot/jquery.flot.js')}}"></script>
-    <script src="{{asset('admin/vendors/Flot/jquery.flot.pie.js')}}"></script>
-    <script src="{{asset('admin/vendors/Flot/jquery.flot.time.js')}}"></script>
-    <script src="{{asset('admin/vendors/Flot/jquery.flot.stack.js')}}"></script>
-    <script src="{{asset('admin/vendors/Flot/jquery.flot.resize.js')}}"></script>
-    <!-- Flot plugins -->
-    <script src="{{asset('admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
-    <script src="{{asset('admin/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
-    <script src="{{asset('admin/vendors/flot.curvedlines/curvedLines.js')}}"></script>
-    <!-- DateJS -->
-    <script src="{{asset('admin/vendors/DateJS/build/date.js')}}"></script>
-    <!-- JQVMap -->
-    <script src="{{asset('admin/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
-    <script src="{{asset('admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-    <script src="{{asset('admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{{asset('admin/vendors/moment/min/moment.min.j')}}s"></script>
-    <script src="{{asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+  
+  <!-- General JS Scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="{{asset('stisla/assets/js/stisla.js')}}"></script>
 
-    <!-- Custom Theme Scripts -->
-    <script src="{{asset('admin/build/js/custom.min.js')}}"></script>
-  @include('layouts.includes._footer')
-  </body>
+  <!-- JS Libraies -->
+  
+
+  <!-- Template JS File -->
+  <script src="{{asset('stisla/assets/js/scripts.js')}}"></script>
+  <script src="{{asset('stisla/assets/assets/js/custom.js')}}"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="{{asset('stisla/assets/js/page/index.js')}}"></script>
+</body>
 </html>
