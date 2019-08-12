@@ -1,50 +1,41 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container body">
-  <div class="main_container">
-    <div class="right_col" role="main">
-      <div class="">
-        <div class="clearfix"></div>
 
-        <div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Projects</h2>
-                    <div class="clearfix"></div>
+        <section class="section">
+          <div class="section-header">
+            <h1>Table</h1>
+          </div>
+
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Projects</h4>
                   </div>
-                  <div class="x_content">
-                    <!-- start project list -->
-                    <table class="table table-striped projects">
-                      <thead>
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
                         <tr>
-                          <th style="width: 10%">Kode Project</th>
-                          <th style="width: 20%">Project Name</th>
-                          <th style="width: 20%">Customer Name</th>
-                          <th style="width: 20%">Sales Name </th>
-                          <th style="width: 20%">Action</th>
+                          <th>Kode Project</th>
+                          <th>Customer Name</th>
+                          <th>Sales Name</th>
+                          <th>Action</th>
                         </tr>
-                      </thead>
-                      <tbody>
                         <tr>
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
-                          <td>
-                            <a href="{{ url ('/cogs/pages') }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                          </td>
+                          <td><a href="{{ url ('/cogs/pages')}}" class="btn btn-secondary">View</a></td>
                         </tr>
-                      </tbody>
-                    </table>
-                    <!-- end project list -->
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+          </div>
+        </section>
 @endsection
