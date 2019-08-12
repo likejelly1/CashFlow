@@ -1,10 +1,18 @@
 <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="">Mitra Inti Bersama</a>
+            <a href="#">
+              <figure class="avatar mr-2 avatar-xs">
+                  <img src="{{asset('/img/mib_logo_circle.png')}}" alt="...">
+              </figure> Mitra Inti Bersama
+            </a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="">MIB</a>
+            <a href="#">
+              <figure class="avatar">
+                  <img src="{{asset('/img/mib_logo_circle.png')}}" alt="...">
+              </figure>
+            </a>
           </div>
           <ul class="sidebar-menu">
               <li class="menu-header">Dashboard</li>
