@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,10 +44,6 @@
         <!-- page content -->
         @yield('content')
         <!-- /page content -->
-
-        <!-- footer content -->
-        @include('layouts.includes._footer')
-        <!-- /footer content -->
       </div>
     </div>
 
@@ -92,6 +87,6 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{asset('admin/build/js/custom.min.js')}}"></script>
-	
+  @include('layouts.includes._footer')
   </body>
 </html>

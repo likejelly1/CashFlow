@@ -14,3 +14,6 @@
 Route::get('/home', function () {
     return view('home');
 });
+
+Route::get('/cogs/index2', 'CogsController@index');
+Route::get('/cogs/pages', 'CogsController@page');
