@@ -22,10 +22,10 @@
               
               <li class="menu-header">Pages</li>
               <li class="nav-item dropdown">
-                <a href="{{ url ('/cogs/index2')}}"><i class="far fa-user"></i> <span>COGS</span></a>
+                <a href="{{ url ('/cogs/index2')}}"><i class="fa fa-project-diagram"></i> <span>COGS</span></a>
               </li>
               <li class="nav-item dropdown">
-                <a href=""><i class="fas fa-exclamation"></i> <span>Project Cost</span></a>
+                <a href="{{route('pc.index')}}"><i class="fas fa-money-bill-alt"></i> <span>Project Cost</span></a>
               </li>
               <li class="nav-item dropdown">
                 <a href=""><i class="fas fa-bicycle"></i> <span>PnL</span></a>
