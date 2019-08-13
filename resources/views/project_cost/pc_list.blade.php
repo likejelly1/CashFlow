@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css "> -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css ">
+
 
 <section class="section">
           <div class="section-header">
@@ -12,10 +11,7 @@
             </div>
             
             <div class="section-header-breadcrumb">
-                <h1>Project Code : #PRO08190001</h1>
-              <!-- <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="#">Posts</a></div>
-              <div class="breadcrumb-item">All Posts</div> -->
+                <h1>Project Code : <b style="color:#">#PRO08190001</b></h1>
             </div>
           </div>
           <div class="section-body">

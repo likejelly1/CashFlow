@@ -14,10 +14,10 @@
         
         <li class="menu-header">Pages</li>
         <li class="@if(Request::is('cogs/*'))active @endif nav-item dropdown">
-          <a class="nav-link" href="{{ url ('/cogs/index2')}}"><i class="far fa-user"></i> <span>COGS</span></a>
+          <a class="nav-link" href="{{ route('cogs.project')}}"><i class="far fa-user"></i> <span>COGS</span></a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href=""><i class="fas fa-exclamation"></i> <span>Project Cost</span></a>
+        <li class="@if(Request::is('pc/*'))active @endif nav-item dropdown">
+          <a class="nav-link" href="{{route('pc.index')}}"><i class="fas fa-exclamation"></i> <span>Project Cost</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href=""><i class="fas fa-bicycle"></i> <span>PnL</span></a>

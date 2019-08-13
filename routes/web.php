@@ -23,7 +23,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // route COGS
-Route::group(['prefix'=>'cogs', 'name'=>'cogs.'], function ()
+Route::group(['prefix'=>'cogs', 'as'=>'cogs.'], function ()
 {
    Route::get('/', ['as'=>'project', 'uses'=>'CogsController@index']);
    Route::get('/{code}', ['as'=>'show', 'uses'=>'CogsController@show']);

@@ -16,6 +16,6 @@ class CogsController extends Controller
     }
 
     public function addNew(){
-        return view('cogs.tambahProject');
+        return view('cogs.create');
     }
 }
