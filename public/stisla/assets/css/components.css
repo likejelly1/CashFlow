@@ -1217,7 +1217,9 @@ tr:first-child > td > .fc-day-grid-event {
     font-size: 12px; }
   .tickets-list .ticket-item .ticket-title h4 {
     font-size: 16px;
-    font-weight: 700; }
+    font-weight: 700; 
+    border-bottom: 1px solid #DFDFDF;
+  }
   .tickets-list .ticket-item .ticket-info {
     display: flex;
     font-size: 12px;
