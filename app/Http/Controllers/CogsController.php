@@ -11,6 +11,7 @@ class CogsController extends Controller
     }
 
     public function page(){
+        
         return view('cogs.pages');
     }
 

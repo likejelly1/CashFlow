@@ -21,3 +21,17 @@ Route::get('/cogs/tambahProject', 'CogsController@addNew');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// route COGS
+Route::group(['prefix'=>'cogs', 'name'=>'cogs.'], function ()
+{
+   Route::get('/', ['as'=>'project', 'uses'=>'CogsController@index']);
+   Route::get('/{code}', ['as'=>'show', 'uses'=>'CogsController@show']);
+});
+
+// route Project Cost
+Route::group(['prefix'=>'pc', 'as'=>'pc.'], function ()
+{
+   Route::get('/', ['as'=>'index', 'uses'=>'ProjectCostController@index']);
+   Route::get('/list', ['as'=>'show', 'uses'=>'ProjectCostController@list']);
+});
