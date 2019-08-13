@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/cogs/index2', 'CogsController@index');
 Route::get('/cogs/pages', 'CogsController@page');
+Route::get('/cogs/tambahProject', 'CogsController@addNew');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
