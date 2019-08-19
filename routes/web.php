@@ -31,7 +31,8 @@ Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], func
 // route Project Cost
 Route::group(['prefix' => 'pc', 'as' => 'pc.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'index', 'uses' => 'ProjectCostController@index']);
-   Route::get('/list', ['as' => 'show', 'uses' => 'ProjectCostController@list']);
+   Route::get('/{id}/est', ['as' => 'est', 'uses' => 'ProjectCostController@estimation']);
+   Route::get('/{id}/real', ['as' => 'real', 'uses' => 'ProjectCostController@realization']);
 });
 
 Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'auth'], function () {

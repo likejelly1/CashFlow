@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
 use Illuminate\Http\Request;
 
 class ProjectCostController extends Controller
@@ -13,13 +14,21 @@ class ProjectCostController extends Controller
      */
     public function index()
     {
-        return view('project_cost.index');
+        $projects = Project::all();
+        // return $projects[0]->customer;
+        return view('project_cost.index', compact('projects'));
     }
 
-    public function list()
+    public function estimation($id)
     {
-        return view('project_cost.pc_list');
+        $projects = Project::find($id);
+        return view('project_cost.estimation', compact('projects'));
     }
+
+    // public function list()
+    // {
+    //     return view('project_cost.pc_list');
+    // }
 
     /**
      * Show the form for creating a new resource.
