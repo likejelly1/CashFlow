@@ -39,10 +39,11 @@ Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'auth']
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'index', 'uses' => 'UserController@index']);
    Route::post('/', ['as' => 'store', 'uses' => 'UserController@store']);
-
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'UserController@destroy']);
    Route::get('/{id}/edit', ['as' => 'edit', 'uses' => 'UserController@edit']);
 });
+
+
 Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'project', 'uses' => 'CogsController@index']);
    Route::get('/show/{id}', ['as' => 'show', 'uses' => 'CogsController@show']);
