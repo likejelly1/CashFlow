@@ -1465,6 +1465,10 @@ table tr:hover .table-links {
 
 .modal-part {
   display: none; } */
+  padding: 7px 13px; }
+/* table */
+
+
 
 /* 3.9 Nav */
 .nav-tabs .nav-item .nav-link {
@@ -4313,17 +4317,13 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 }
 
 @-webkit-keyframes pulsate {
-    0% {
-        -webkit-transform: scale(0.1, 0.1);
-        opacity: 0.0;
-    }
+  0% {
+    -webkit-transform: scale(0.1, 0.1);
+    opacity: 0.0; }
+  50% {
+    opacity: 1.0; }
+  100% {
+    -webkit-transform: scale(1.2, 1.2);
+    opacity: 0.0; } }
 
-    50% {
-        opacity: 1.0;
-    }
 
-    100% {
-        -webkit-transform: scale(1.2, 1.2);
-        opacity: 0.0;
-    }
-}

@@ -5,7 +5,7 @@
   <div class="section-header">
     <h1>Projects</h1>
     <div class="section-header-button">
-      <a href="{{ url ('/cogs/tambahProject')}}" class="btn btn-primary">Add New</a>
+      <a href="{{ route('cogs.addProject')}}" class="btn btn-primary">Add New</a>
     </div>
   </div>
   
@@ -17,57 +17,45 @@
             <h4>List Project</h4>
           </div>
 
-          <div class="card-body p-0">
+          <div class="card-body">
+           <div class="clearfix mb-3"></div>
             <div class="table-responsive">
-              <table class="table table-striped">
-                <tr>
-                  <th>Kode Project</th>
-                  <th>Project Name</th>
-                  <th>Customer Name</th>
-                  <th>Author</th>
-                  <th>Action</th>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><a href="{{ url ('/cogs/pages')}}" class="btn btn-info">View</a></td>
-                </tr>
+              <table id="projectList" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Kode Project</th>
+                    <th>Project Name</th>
+                    <th>Customer Name</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @foreach($project as $p)
+                  <tr>
+                    <td>{{ $p->id}}</td>
+                    <td>{{ $p->code}}</td>
+                    <td>{{ $p->name}}</td>
+                    <td>{{ App\Customer::where('id',$p->customer_id)->first()->name}}</td>
+                    <td>{{ App\User::where('id',$p->user_id)->first()->name }}</td>
+                    <td><a href="{{ route('cogs.show', [ 'id' => $p->id ])}}" class="btn btn-info">View</a></td>
+                  </tr>
+                @endforeach
+                </tbody>
               </table>
             </div>
-          </div>
-
-          <div class="float-right">
-            <nav>
-              <ul class="pagination">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">«</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+  @section('script.js')
+  <script>
+    $(document).ready(function() {
+        $('#projectList').DataTable();
+    } );
+  </script>
+  @endsection
 @endsection

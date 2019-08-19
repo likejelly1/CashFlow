@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\Project;
 
-class ProjectController extends Controller
+class PnlController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $project = Project::all();
-        return view('cogs.index2', compact('project'));
+        return view('pnl.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +24,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('/cogs/create');
+        //
     }
 
     /**
@@ -37,18 +35,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        
         //
-        $lastBooking = Project::orderBy('created_at', 'desc')->first();
-        if (!$lastBooking) {
-            $booking_number = str_pad(0,5,0,STR_PAD_LEFT);
-        }else {
-            $booking_number = str_pad($lastBooking->id - 1,5,0,STR_PAD_LEFT);
-        }
-        $tgl = Carbon::now()->format('ym');
-        $projectname = substr($request->project_name,1,3);
-
-        $project_code = $projectname.$tgl.$booking_number;
     }
 
     /**
