@@ -15,23 +15,29 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Route::get('/cogs/index2', 'CogsController@index');
-Route::get('/cogs/pages', 'CogsController@page');
-Route::get('/cogs/tambahProject', 'CogsController@addNew');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 // route COGS
-Route::group(['prefix'=>'cogs', 'name'=>'cogs.'], function ()
+Route::group(['prefix'=>'cogs', 'as'=>'cogs.', 'middleware'=>'auth'], function ()
 {
    Route::get('/', ['as'=>'project', 'uses'=>'CogsController@index']);
-   Route::get('/{code}', ['as'=>'show', 'uses'=>'CogsController@show']);
+   Route::get('/show/{id}', ['as'=>'show', 'uses'=>'CogsController@show']);
+   Route::get('/addProject', ['as'=>'addProject', 'uses'=>'CogsController@addNew']);
+   Route::post('/storeProject', ['as'=>'storeProject', 'uses'=>'CogsController@store']);
+   Route::post('/storeProcart', ['as' => 'storeProcart', 'uses' => 'CogsController@storeProcart']);
 });
 
 // route Project Cost
-Route::group(['prefix'=>'pc', 'as'=>'pc.'], function ()
+Route::group(['prefix'=>'pc', 'as'=>'pc.', 'middleware'=>'auth'], function ()
 {
    Route::get('/', ['as'=>'index', 'uses'=>'ProjectCostController@index']);
    Route::get('/list', ['as'=>'show', 'uses'=>'ProjectCostController@list']);
+});
+
+// route PnL
+Route::group(['prefix' => 'pnl', 'as' => 'pnl.', 'middleware' => 'auth'], function () 
+{
+   Route::get('/', ['as' => 'index', 'uses' => 'PnlController@index']);
 });

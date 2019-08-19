@@ -31,7 +31,7 @@
                           <td>Eko </td>
                           <td>0</td>
                           <td>
-                            <a href="#" class="btn btn-info btn-icon icon-left">
+                            <a href="{{ route('pc.show')}}" class="btn btn-info btn-icon icon-left">
                                 <i class="fas fa-eye"></i>
                                 View Items
                             </a>

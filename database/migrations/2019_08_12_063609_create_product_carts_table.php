@@ -18,8 +18,8 @@ class CreateProductCartsTable extends Migration
             $table->bigInteger('project_id');
             $table->bigInteger('product_id');
             $table->bigInteger('qty');
-            $table->float('discount');
-            $table->float('grossup');
+            $table->float('discount')->nullable();
+            $table->float('grossup')->nullable();
             $table->timestamps();
         });
     }
