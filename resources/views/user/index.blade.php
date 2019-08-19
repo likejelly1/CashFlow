@@ -21,7 +21,6 @@
                             <table id="itemList" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
@@ -31,7 +30,6 @@
                                 <tbody id="dataTable">
                                     @foreach($emp as $p)
                                     <tr>
-                                        <td>{{$p->id}}</td>
                                         <td>{{$p->name}}</td>
                                         <td>{{$p->email}}</td>
                                         <td>{{ucfirst($p->role->nama_role)}}</td>
