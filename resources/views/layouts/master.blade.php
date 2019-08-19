@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Cashflow &mdash; MIB</title>
+
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-
-  <!-- CSS Libraries -->
-  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/jqvmap/dist/jqvmap.min.css')}}">
-  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/summernote/dist/summernote-bs4.css')}}">
-  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/owl.carousel/dist/assets/owl.carousel.min.css')}}">
-  <link rel="stylesheet" href="{{asset('stisla/assets/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css')}}">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('stisla/assets/css/style.css')}}">
@@ -25,8 +22,8 @@
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
-       <!-- Navbar -->
-       @include('layouts.includes._navbar')
+      <!-- Navbar -->
+      @include('layouts.includes._navbar')
       <!-- End Navbar -->
 
       <!-- Side Bar -->
@@ -34,14 +31,14 @@
       <!-- End Side Bar -->
 
       <div class="main-content">
-      @yield('content')
+        @yield('content')
       </div>
 
       @include('layouts.includes._footer')
     </div>
   </div>
 
-  
+
   <!-- General JS Scripts -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -54,11 +51,12 @@
   <!-- JS Libraies -->
   <!-- Template JS File -->
   <script src="{{asset('stisla/assets/js/scripts.js')}}"></script>
-  <script src="{{asset('stisla/assets/assets/js/custom.js')}}"></script>
+  <script src="{{asset('stisla/assets/js/custom.js')}}"></script>
 
   <!-- Page Specific JS File -->
   <script src="{{asset('stisla/assets/js/page/index.js')}}"></script>
 
   @yield('script.js')
 </body>
+
 </html>

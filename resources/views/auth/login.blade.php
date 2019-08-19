@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
@@ -22,6 +22,7 @@
   <div id="app">
     <section class="section">
       <div class="d-flex flex-wrap align-items-stretch">
+        <!-- login -->
         <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
           <div class="p-4 m-3">
             <img src="{{asset('img/mib_logo.png')}}" alt="logo" width="80" class="shadow-light rounded mb-5 mt-2">
@@ -68,7 +69,7 @@
                 </button>
               </div>
 
-              
+
             </form>
 
             <div class="text-center mt-5 text-small">
@@ -81,6 +82,7 @@
             </div>
           </div>
         </div>
+        <!-- slide show -->
         <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="{{asset('stisla/assets/img/unsplash/login-bg.jpg')}}">
           <div class="absolute-bottom-left index-2">
             <div class="text-light p-5 pb-2">
@@ -112,4 +114,5 @@
 
   <!-- Page Specific JS File -->
 </body>
+
 </html>
