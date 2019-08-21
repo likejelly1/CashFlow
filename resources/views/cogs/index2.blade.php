@@ -4,21 +4,21 @@
 <section class="section">
   <div class="section-header">
     <h1>Projects</h1>
-    <div class="section-header-button">
-      <a href="{{ route('cogs.addProject')}}" class="btn btn-primary">Add New</a>
-    </div>
   </div>
-  
+
   <div class="section-body">
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
             <h4>List Project</h4>
+            <div class="card-header-action">
+              <a href="{{ route('cogs.addProject')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Project</a>
+            </div>
           </div>
 
           <div class="card-body">
-           <div class="clearfix mb-3"></div>
+            <div class="clearfix mb-3"></div>
             <div class="table-responsive">
               <table id="projectList" class="table table-striped">
                 <thead>
@@ -32,16 +32,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                @foreach($project as $p)
+                  @foreach($project as $p)
                   <tr>
                     <td>{{ $p->id}}</td>
                     <td>{{ $p->code}}</td>
                     <td>{{ $p->name}}</td>
                     <td>{{ App\Customer::where('id',$p->customer_id)->first()->name}}</td>
                     <td>{{ App\User::where('id',$p->user_id)->first()->name }}</td>
-                    <td><a href="{{ route('cogs.show', [ 'id' => $p->id ])}}" class="btn btn-info">View</a></td>
+                    <td><a href="{{ route('cogs.show', [ 'id' => $p->id ])}}" class="btn btn-info"><i class="fas fa-eye"></i> View</a></td>
                   </tr>
-                @endforeach
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -51,11 +51,11 @@
     </div>
   </div>
 </section>
-  @section('script.js')
-  <script>
-    $(document).ready(function() {
-        $('#projectList').DataTable();
-    } );
-  </script>
-  @endsection
+@section('script.js')
+<script>
+  $(document).ready(function() {
+    $('#projectList').DataTable();
+  });
+</script>
+@endsection
 @endsection

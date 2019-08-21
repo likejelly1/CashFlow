@@ -608,7 +608,9 @@ select.form-control:not([size]):not([multiple]) {
   margin-bottom: 30px; }
   .card .card-header, .card .card-body, .card .card-footer {
     background-color: transparent;
-    padding: 20px 25px; }
+    padding: 20px 25px; 
+    position: relative;
+  }
   .card .navbar {
     position: static; }
   .card .card-body {
@@ -2316,7 +2318,8 @@ pre {
         background-color: #6777ef;
         color: #fff; }
     .section .section-header .section-header-button {
-      margin-left: 20px; }
+      margin-left: 20px;
+     }
     .section .section-header .section-header-breadcrumb {
       margin-left: auto;
       display: flex;

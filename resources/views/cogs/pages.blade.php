@@ -8,8 +8,39 @@
       <div class="breadcrumb-item active"><a href="{{url ('/cogs/index2')}}">List Project</a></div>
       <div class="breadcrumb-item ">Project Detail</div>
     </div>
+  </div>
 
-
+  <div class="statistic-details mt-sm-4">
+    <div class="statistic-details-item">
+      <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span> 7%</span>
+      <div class="detail-value">$243</div>
+      <div class="detail-name">Today's Sales</div>
+    </div>
+    <div class="statistic-details-item">
+      <span class="text-muted"><span class="text-danger"><i class="fas fa-caret-down"></i></span> 23%</span>
+      <div class="detail-value">$2,902</div>
+      <div class="detail-name">This Week's Sales</div>
+    </div>
+    <div class="statistic-details-item">
+      <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span>9%</span>
+      <div class="detail-value">$12,821</div>
+      <div class="detail-name">This Month's Sales</div>
+    </div>
+    <div class="statistic-details-item">
+      <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span> 19%</span>
+      <div class="detail-value">$92,142</div>
+      <div class="detail-name">This Year's Sales</div>
+    </div>
+    <div class="statistic-details-item">
+      <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span> 19%</span>
+      <div class="detail-value">$92,142</div>
+      <div class="detail-name">This Year's Sales</div>
+    </div>
+    <div class="statistic-details-item">
+      <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span> 19%</span>
+      <div class="detail-value">$92,142</div>
+      <div class="detail-name">This Year's Sales</div>
+    </div>
   </div>
 
   <div class="section-body">
@@ -18,8 +49,8 @@
         <div class="card">
           <div class="card-header">
             <h4>Project Detail</h4>
-            <div class="section-header-button">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Add Project Detail</button>
+            <div class="card-header-action">
+              <button type="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#editModal"><i class="fas fa-plus"></i> Add Project Detail</button>
             </div>
           </div>
           <div class="card-body">
@@ -68,6 +99,7 @@
                   </thead>
                   <tbody id="dataTable">
                     @foreach($project->product_carts as $res)
+
                     <tr>
                       <td>{{ $res->product->name }}</td>
                       <td>{{ $res->qty }}</td>
@@ -83,6 +115,7 @@
                       <td><a href="#">null</a></td>
                       <td><a href="#">null</a></td>
                     </tr>
+
                     @endforeach
                   </tbody>
                 </table>
@@ -109,23 +142,26 @@
                       <th rowspan="2">Harga Total Jual</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="dataTable">
+                    @foreach($project->product_carts as $res)
+
                     <tr>
-                      <th scope="row">1</th>
-                      <td>oracle</td>
-                      <td>2</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>20%</td>
-                      <td>20%</td>
-                      <td>50000</td>
-                      <td>50000</td>
-                      <td>10%</td>
-                      <td>10%</td>
-                      <td>50000</td>
-                      <td>50000</td>
+                      <td>{{ $res->product->name }}</td>
+                      <td>{{ $res->qty }}</td>
+                      <td><a href="#">null</a></td>
+                      <td>{{ $res->product->price }}</td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
                     </tr>
+
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -353,7 +389,6 @@
   </div>
 </div>
 
-
 @section('script.js')
 <script>
   $(document).ready(function() {
@@ -361,47 +396,5 @@
   });
 </script>
 @endsection
-
-<!-- @section('jquery.js')
-<script>
-  function loadDataTable() {
-    $.ajax({
-      url: ""
-      success: function(data) {
-        $('#dataTable').html(data);
-      }
-    })
-  }
-  loadDataTable();
-  $('#formSave').submit(function(e) {
-    e.preventDefault();
-    var request = new FormData(this);
-    $.ajax({
-      url: "",
-      method: "POST",
-      data: request,
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: function(data) {
-        if (data == "sukses") {
-          $('#closeModalTambah').click();
-          $('#formSave')[0].reset();
-          alert('berhasil menambah data');
-          loadDataTable();
-        }
-      }
-    });
-  });
-
-  $(document).on('click', '.delete', function(e) {
-    e.preventDefault();
-    var id = $(this).attr('id');
-    $.ajax({
-      url: "" + id;
-    })
-  });
-</script>
-@endsection -->
 
 @endsection
