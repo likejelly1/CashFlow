@@ -25,6 +25,12 @@ Route::group(['prefix' => 'pc', 'as' => 'pc.', 'middleware' => 'auth'], function
    Route::get('/', ['as' => 'index', 'uses' => 'ProjectCostController@index']);
    Route::get('/{id}/est', ['as' => 'est', 'uses' => 'ProjectCostController@estimation']);
    Route::get('/{id}/real', ['as' => 'real', 'uses' => 'ProjectCostController@realization']);
+   Route::post('/est', ['as' => 'store.estimation', 'uses' => 'ProjectCostController@storeEstimation']);
+   Route::post('/real', ['as' => 'store.realization', 'uses' => 'ProjectCostController@storeRealization']);
+   Route::delete('/{id}/real', ['as' => 'destroy.realization', 'uses' => 'ProjectCostController@destroyRealization']);
+   Route::delete('/{id}/est', ['as' => 'destroy.estimation', 'uses' => 'ProjectCostController@destroyEstimation']);
+   Route::get('/{id}/edit/est', ['as' => 'edit.estimation', 'uses' => 'ProjectCostController@editEstimation']);
+   Route::get('/{id}/edit/real', ['as' => 'edit.realization', 'uses' => 'ProjectCostController@editRealization']);
 });
 
 Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'auth'], function () {

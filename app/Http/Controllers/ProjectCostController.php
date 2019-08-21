@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\ProjectCost;
 use Illuminate\Http\Request;
+use Response;
 
 class ProjectCostController extends Controller
 {
@@ -22,7 +24,15 @@ class ProjectCostController extends Controller
     public function estimation($id)
     {
         $projects = Project::find($id);
-        return view('project_cost.estimation', compact('projects'));
+
+        for ($i = 0; $i < count($projects->project_cost); $i++) {
+            $rate[$i] = $projects->project_cost[$i]->rate;
+            $qty[$i] = $projects->project_cost[$i]->qty;
+            $freq[$i] = $projects->project_cost[$i]->freq;
+            $durration[$i] = $projects->project_cost[$i]->durration;
+            $total[$i] = $rate[$i] * $qty[$i] * $freq[$i] * $durration[$i];
+        }
+        return view('project_cost.estimation', compact('total', 'projects'));
     }
 
     // public function list()
@@ -46,7 +56,19 @@ class ProjectCostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeEstimation(Request $request)
+    {
+        $project_cost = ProjectCost::firstOrNew(['item' => $request->item]);
+        $project_cost->project_id = $request->project_id;
+        $project_cost->item = $request->item;
+        $project_cost->rate = $request->rate;
+        $project_cost->qty = $request->qty;
+        $project_cost->freq = $request->freq;
+        $project_cost->durration = $request->durration;
+        $success = $project_cost->save();
+        return redirect()->back();
+    }
+    public function storeRealization(Request $request)
     {
         //
     }
@@ -68,11 +90,16 @@ class ProjectCostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editEstimation($id)
+    {
+        $project_cost = ProjectCost::find($id);
+        return Response::json($project_cost);
+    }
+
+    public function editRealization($id)
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *

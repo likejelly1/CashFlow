@@ -17,10 +17,10 @@ class CreateProjectCostsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('project_id');
             $table->string('item');
-            $table->bigInteger('rate');
-            $table->integer('qty');
-            $table->integer('freq');
-            $table->integer('durration');
+            $table->bigInteger('rate')->default(0);
+            $table->integer('qty')->default(1);
+            $table->integer('freq')->default(1);
+            $table->integer('durration')->default(1);
             $table->timestamps();
         });
     }

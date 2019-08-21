@@ -37,18 +37,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        
-        //
-        $lastBooking = Project::orderBy('created_at', 'desc')->first();
-        if (!$lastBooking) {
-            $booking_number = str_pad(0,5,0,STR_PAD_LEFT);
-        }else {
-            $booking_number = str_pad($lastBooking->id - 1,5,0,STR_PAD_LEFT);
-        }
-        $tgl = Carbon::now()->format('ym');
-        $projectname = substr($request->project_name,1,3);
-
-        $project_code = $projectname.$tgl.$booking_number;
+        // 
     }
 
     /**
@@ -70,7 +59,7 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 
     }
 
     /**
