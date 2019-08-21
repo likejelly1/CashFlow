@@ -11,19 +11,17 @@
     </div>
 
     <div class="section-body">
-        <div class="row mt-4">
-            <div class="col-12">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4>All Items</h4>
+                        <h4>Consolidation</h4>
                     </div>
                     <div class="card-body">
-                        <div class="clearfix mb-3"></div>
                         <div class="table-responsive">
-                            <table id="example" class="table table-striped" style="width:100%">
+                            <table class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>Description</th>
                                         <th>Amount</th>
                                         <th>%</th>
@@ -31,20 +29,13 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>#</th>
                                         <td>Gross Sales</td>
                                     </tr>
                                     <tr>
-                                        <th>#</th>
                                         <td>Faktor Negotation</td>
                                     </tr>
                                     <tr>
-                                        <th>#</th>
                                         <td>Net Sales</td>
-                                    </tr>
-                                    <tr>
-                                        <th>#</th>
-                                        <td>Cost of Sales</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -52,18 +43,55 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Cost of sales</th>
+                                        <th>Amount</th>
+                                        <th>%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cost of product</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Biaya Administrasi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bank Garansi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Entertainment</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Biaya lain-lain</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Project Cost</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </section>
 @section('script.js')
 <script>
     $(document).ready(function() {
-        var table = $('#example').DataTable({
-            // scrollY: "500px",
-            scrollX: true,
-            scrollCollapse: true,
-            fixedColumns: true
-        });
+        $('#myTable').DataTable();
     });
 </script>
 @endsection
