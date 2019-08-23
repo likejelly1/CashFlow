@@ -19,6 +19,7 @@
               <table id="projectList" class="table table-striped">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>Kode Project</th>
                     <th>Project Name</th>
                     <th>Customer Name</th>
@@ -30,9 +31,10 @@
                 <tbody>
                   @foreach($projects as $p)
                   <tr>
+                    <td>{{$loop->iteration}}</td>
                     <td>{{$p->code}}</td>
                     <td>{{$p->name}}</td>
-                    <td>{{ucfirst($p->customer->name)}}</td>
+                    <td>{{ucfirst($p->customer->institution_name)}}</td>
                     <td>{{ucfirst($p->user->name)}}</td>
                     <td>{{count($p->project_cost)}}</td>
                     <td>

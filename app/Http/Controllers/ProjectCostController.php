@@ -34,6 +34,13 @@ class ProjectCostController extends Controller
         }
         return view('project_cost.estimation', compact('total', 'projects'));
     }
+    public function realization($id)
+    {
+        $projects = Project::find($id);
+        $project_cost = $projects->project_cost;
+        $realization = $project_cost->realization;
+        // return view('project_cost.estimation', compact('total', 'projects'));
+    }
 
     // public function list()
     // {

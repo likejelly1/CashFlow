@@ -42,7 +42,7 @@
                             <h4>Total Estimated Cost</h4>
                         </div>
                         <div id="totalCost" class="card-body">
-                            IDR {{number_format(array_sum($total))}}
+                            Rp {{number_format(array_sum($total))}}
                         </div>
                     </div>
                 </div>
@@ -172,15 +172,33 @@
 @section('script.js')
 <script>
     $(document).ready(function() {
-        $('#itemList').DataTable();
+        var table = $('#itemList').DataTable();
+
+        $('#itemList tbody').on('click', 'td', function() {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                row.child.hide();
+
+            } else {
+                row.child(format(row.data())).show();
+            }
+
+        });
 
     });
+
+
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
         }
     });
 
+    function format(data) {
+        return t
+    }
 
     function load() {
         $.ajax({
@@ -218,60 +236,6 @@
             $('#tambahEstimationModal').modal('show');
         });
     });
-    // // delete
-    // $('.delete').click(function(e) {
-    //     e.preventDefault();
-    //     // console.log(1);
-    //     var id = $(this).data('id');
-    //     // console.log(id);
-    //     var c = confirm("Are you sure want to delete?");
-    //     if (c) {
-    //         $.ajax({
-    //             type: "DELETE",
-    //             data: {
-    //                 "id": id,
-    //                 "_token": ""
-    //             },
-    //             url: "",
-    //             success: function(data) {
-    //                 if (data.status == "sukses") {
-    //                     alert("data berhasil dihapus");
-    //                     load();
-    //                 } else {
-    //                     alert("data gagal dihapus");
-    //                 }
-    //             }
-    //         });
-
-    //     } else {
-    //         alert("tidak jadi");
-    //     }
-    // });
-
-    // save or updata
-    // $('#addEstimationForm').submit(function(e) {
-    //     e.preventDefault();
-    //     var request = new FormData(this);
-    //     console.log(request);
-    //     $.ajax({
-    //         url: "",
-    //         method: "POST",
-    //         data: request,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         success: function(data) {
-    //             if (data.status == "sukses") {
-    //                 $('.close').click();
-    //                 alert('transaksi e');
-    //                 load();
-    //             } else {
-    //                 alert('data gagal masuk');
-    //             }
-    //             load();
-    //         }
-    //     });
-    // });
 </script>
 @endsection
 @endsection
