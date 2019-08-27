@@ -4,9 +4,9 @@
 <section class="section">
     <div class="section-header">
         <h1>Employees</h1>
-        <div class="section-header-button">
-            <button id="createEmployee" class="btn btn-primary">Add New account</button>
-        </div>
+        <!-- <div class="section-header-button">
+            <button id="createEmloyee" class="btn btn-primary">Add New</button>
+        </div> -->
     </div>
     <div class="section-body">
         <div class="row mt-4">
@@ -14,6 +14,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>All Items</h4>
+                        <div class="card-header-action">
+                            <button id="createEmployee" class="btn btn-danger"><i class="fas fa-plus"></i> Add New Account</button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="clearfix mb-3"></div>
@@ -34,10 +37,10 @@
                                         <td>{{$p->email}}</td>
                                         <td>{{ucfirst($p->role->nama_role)}}</td>
                                         <td>
-                                            <a id="editEmployee" data-id="{{$p->id}}" href="#" class="btn btn-icon edit btn-sm btn-primary">
+                                            <a id="editEmployee" data-id="{{$p->id}}" href="#" class="btn btn-icon edit btn-sm btn-primary" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                                 <i class="far fa-edit"></i>
                                             </a>
-                                            <button onclick="document.getElementById('destroyForm{{$p->id}}').submit();" id="deleteEmployee" data-id="{{$p->id}}" class="btn btn-icon delete btn-sm btn-danger">
+                                            <button onclick="document.getElementById('destroyForm{{$p->id}}').submit();" id="deleteEmployee" data-id="{{$p->id}}" class="btn btn-icon delete btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
                                             <form id="destroyForm{{$p->id}}" style="display: none;" action="{{route('user.destroy', ['id'=> $p->id])}}" method="POST">

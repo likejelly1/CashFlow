@@ -16,9 +16,22 @@ class CogsController extends Controller
     public function index()
     {
         $project = Project::all();
+
         return view('cogs.index2', compact('project'));
     }
-
+    public function getData($id)
+    {
+        $categories = Category::find($id);
+        // return $categories->product;
+        $p = $categories->product;
+        // for ($i = 0; $i < count($p); $i++) {
+        //     $pc[$i] = $p[$i]->product_carts;
+        // }
+        return $p;
+        // $product_cart = $categories->product->product_carts;
+        // return $product_cart;
+        // return view('cogs.cart', compact('product_carts'));
+    }
     public function show($id)
     {
         $project = Project::find($id);
@@ -53,7 +66,7 @@ class CogsController extends Controller
         $data->customer_id = $request->customer_id;
         $data->user_id = Auth::user()->id;
         $data->save();
-        return redirect()->route('cogs.project')->with('alert-success', 'Berhasil Menambahkan Data!');
+        return redirect()->route('cogs.project');
     }
 
     public function storeProcart(Request $request)

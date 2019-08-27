@@ -37,9 +37,12 @@
                     <td>{{ $p->id}}</td>
                     <td>{{ $p->code}}</td>
                     <td>{{ $p->name}}</td>
-                    <td>{{ App\Customer::where('id',$p->customer_id)->first()->name}}</td>
-                    <td>{{ App\User::where('id',$p->user_id)->first()->name }}</td>
-                    <td><a href="{{ route('cogs.show', [ 'id' => $p->id ])}}" class="btn btn-info"><i class="fas fa-eye"></i> View</a></td>
+                    <td>{{ $p->customer->institution_name}}</td>
+                    <td>{{ $p->user->name }}</td>
+                    <td>
+                      <a href="{{ route('cogs.show', [ 'id' => $p->id ])}}" class="btn btn-info"><i class="fas fa-eye"></i> View</a>
+
+                    </td>
                   </tr>
                   @endforeach
                 </tbody>

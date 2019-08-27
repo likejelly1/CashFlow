@@ -53,6 +53,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
 Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'project', 'uses' => 'CogsController@index']);
    Route::get('/show/{id}', ['as' => 'show', 'uses' => 'CogsController@show']);
+   Route::get('/getdata/{id}', ['as'=>'getdata', 'uses'=>'CogsController@getData']);
    Route::get('/addProject', ['as' => 'addProject', 'uses' => 'CogsController@addNew']);
    Route::post('/storeProject', ['as' => 'storeProject', 'uses' => 'CogsController@store']);
    Route::post('/storeProcart', ['as' => 'storeProcart', 'uses' => 'CogsController@storeProcart']);
@@ -62,4 +63,14 @@ Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], func
 // route PnL
 Route::group(['prefix' => 'pnl', 'as' => 'pnl.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'index', 'uses' => 'PnlController@index']);
+});
+
+Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'auth'], function () {
+   Route::get('/', ['as' => 'index', 'uses' => 'CustomerController@index']);
+   Route::get('/add', ['as' => 'add', 'uses' => 'CustomerController@add']);
+   Route::post('/store', ['as' => 'store', 'uses' => 'CustomerController@store']);
+   Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'CustomerController@edit']);
+   Route::put('/update/{id}', ['as' => 'update', 'uses' => 'CustomerController@update']);
+   Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CustomerController@destroy']);
+
 });

@@ -18,12 +18,9 @@ class Project extends Model
     {
         return $this->hasMany('App\ProjectCost');
     }
-    protected $table ='projects';
 
     public function product_carts()
     {
         return $this->hasMany('App\ProductCart');
     }
-
-    
 }

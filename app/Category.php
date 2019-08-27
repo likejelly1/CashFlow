@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table="categories";
 
-    public function kategori()
+    public function product()
     {
-        return $this->hasOne('App\ProductCart', 'id', 'categories_id');
+        return $this->hasMany('App\Product', 'categories_id');
     }
-    
 }

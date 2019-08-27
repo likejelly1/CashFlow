@@ -4,9 +4,9 @@
 <section class="section">
   <div class="section-header">
     <h1>Our Products</h1>
-    <div class="section-header-button">
+    <!-- <div class="section-header-button">
       <button id="createProduct" class="btn btn-primary">Add New</button>
-    </div>
+    </div> -->
   </div>
   <div class="section-body">
     <div class="row mt-4">
@@ -14,6 +14,9 @@
         <div class="card">
           <div class="card-header">
             <h4>All Items</h4>
+            <div class="card-header-action">
+              <button id="createProduct" class="btn btn-danger"><i class="fas fa-plus"></i> Add New Product</button>
+            </div>
           </div>
           <div class="card-body">
             <div class="clearfix mb-3"></div>
