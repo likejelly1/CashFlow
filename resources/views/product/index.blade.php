@@ -51,7 +51,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="addProductForm">
+      <form id="addProductForm" action="{{route('product.store')}}" method="POST">
         @csrf
         <input type="hidden" name="id" id="id">
         <input type="hidden" name="product_code" id="productCode">
@@ -73,10 +73,10 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  IDR
+                  Rp
                 </div>
               </div>
-              <input required id="price" type="number" name="price" class="form-control currency">
+              <input required id="price" type="text" name="price" class="form-control money">
             </div>
           </div>
         </div>
@@ -144,59 +144,59 @@
 
 
     // delete
-    $('.delete').click(function(e) {
-      e.preventDefault();
-      // console.log(1);
-      var id = $(this).data('id');
-      // console.log(id);
-      var c = confirm("Are you sure want to delete?");
-      if (c) {
-        $.ajax({
-          type: "DELETE",
-          data: {
-            "id": id,
-            "_token": "{{csrf_token()}}"
-          },
-          url: "/product/" + id,
-          success: function(data) {
-            if (data.status == "sukses") {
-              alert("data berhasil dihapus");
-              load();
-            } else {
-              alert("data gagal dihapus");
-            }
-          }
-        });
+    // $('.delete').click(function(e) {
+    //   e.preventDefault();
+    //   // console.log(1);
+    //   var id = $(this).data('id');
+    //   // console.log(id);
+    //   var c = confirm("Are you sure want to delete?");
+    //   if (c) {
+    //     $.ajax({
+    //       type: "DELETE",
+    //       data: {
+    //         "id": id,
+    //         "_token": "{{csrf_token()}}"
+    //       },
+    //       url: "/product/" + id,
+    //       success: function(data) {
+    //         if (data.status == "sukses") {
+    //           alert("data berhasil dihapus");
+    //           load();
+    //         } else {
+    //           alert("data gagal dihapus");
+    //         }
+    //       }
+    //     });
 
-      } else {
-        alert("tidak jadi");
-      }
-    });
+    //   } else {
+    //     alert("tidak jadi");
+    //   }
+    // });
 
     // save or updata
-    $('#addProductForm').submit(function(e) {
-      e.preventDefault();
-      var request = new FormData(this);
-      console.log(request);
-      $.ajax({
-        url: "{{route('product.store')}}",
-        method: "POST",
-        data: request,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(data) {
-          if (data.status == "sukses") {
-            $('.close').click();
-            alert('transaksi e');
-            load();
-          } else {
-            alert('data gagal masuk');
-          }
-          load();
-        }
-      });
-    });
+    // $('#addProductForm').submit(function(e) {
+    //   e.preventDefault();
+    //   var request = new FormData(this);
+    //   // console.log(request);
+    //   $.ajax({
+    //     url: "{{route('product.store')}}",
+    //     method: "POST",
+    //     data: request,
+    //     contentType: false,
+    //     cache: false,
+    //     processData: false,
+    //     success: function(data) {
+    //       if (data.status == "sukses") {
+    //         $('.close').click();
+    //         alert('transaksi e');
+    //         load();
+    //       } else {
+    //         alert('data gagal masuk');
+    //       }
+    //       load();
+    //     }
+    //   });
+    // });
 
 
 

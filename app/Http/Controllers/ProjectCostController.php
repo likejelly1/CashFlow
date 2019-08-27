@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\ProjectCost;
+use App\Tou;
 use Illuminate\Http\Request;
 use Response;
 
@@ -24,22 +25,36 @@ class ProjectCostController extends Controller
     public function estimation($id)
     {
         $projects = Project::find($id);
-
         for ($i = 0; $i < count($projects->project_cost); $i++) {
             $rate[$i] = $projects->project_cost[$i]->rate;
             $qty[$i] = $projects->project_cost[$i]->qty;
             $freq[$i] = $projects->project_cost[$i]->freq;
             $durration[$i] = $projects->project_cost[$i]->durration;
-            $total[$i] = $rate[$i] * $qty[$i] * $freq[$i] * $durration[$i];
+            $subtotal[$i] = $rate[$i] * $qty[$i] * $freq[$i] * $durration[$i];
+        }
+        if (!empty($subtotal)) {
+            $total = array_sum($subtotal);
+        } else {
+            $total = 0;
         }
         return view('project_cost.estimation', compact('total', 'projects'));
     }
     public function realization($id)
     {
-        $projects = Project::find($id);
-        $project_cost = $projects->project_cost;
+        // echo $id;
+        $project_cost = ProjectCost::find($id);
         $realization = $project_cost->realization;
-        // return view('project_cost.estimation', compact('total', 'projects'));
+        for ($i = 0; $i < count($realization); $i++) {
+            $cost[$i] = $realization[$i]->cost;
+        }
+        if (!empty($cost)) {
+            $totalcost = array_sum($cost);
+        } else {
+            $totalcost = 0;
+        }
+        // return $realization;
+        // return $project_cost;
+        return view('project_cost.realization', compact('realization', 'totalcost'));
     }
 
     // public function list()
@@ -68,7 +83,7 @@ class ProjectCostController extends Controller
         $project_cost = ProjectCost::firstOrNew(['item' => $request->item]);
         $project_cost->project_id = $request->project_id;
         $project_cost->item = $request->item;
-        $project_cost->rate = $request->rate;
+        $project_cost->rate = str_replace(',','',$request->rate);
         $project_cost->qty = $request->qty;
         $project_cost->freq = $request->freq;
         $project_cost->durration = $request->durration;
@@ -77,7 +92,12 @@ class ProjectCostController extends Controller
     }
     public function storeRealization(Request $request)
     {
-        //
+        $realization = new Tou();
+        $realization->project_cost_id = $request->project_cost_id;
+        $realization->execution_date = $request->execution_date;
+        $realization->cost = str_replace(',','',$request->cost);
+        $realization->save();
+        return redirect()->back();
     }
 
     /**
@@ -103,10 +123,6 @@ class ProjectCostController extends Controller
         return Response::json($project_cost);
     }
 
-    public function editRealization($id)
-    {
-        //
-    }
     /**
      * Update the specified resource in storage.
      *
@@ -125,8 +141,14 @@ class ProjectCostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyEstimation($id)
     {
-        //
+        ProjectCost::destroy($id);
+        return redirect()->back();
+    }
+    public function destroyRealization($id)
+    {
+        Tou::destroy($id);
+        return redirect()->back();
     }
 }

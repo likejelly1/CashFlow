@@ -52,24 +52,17 @@ class ProductController extends Controller
         // $projectname = substr($request->project_name,1,3);
 
         $product_code = "PRD" . $tgl . $product_number;
-        $products = Product::firstOrNew(['id' => $request->id]);
+        $products = Product::firstOrNew(['name' => $request->name]);
         $products->name = $request->name;
         if ($request->product_code != null) {
             $products->code = $request->product_code;
         } else {
             $products->code = $product_code;
         }
-        $products->price = $request->price;
+        $products->price = str_replace(',','',$request->price);
         $products->categories_id = $request->categories;
         $success = $products->save();
-
-        if ($success) {
-            $response['status'] = "sukses";
-        } else {
-            $response['status'] = 'failed';
-        }
-
-        return Response::json($response);
+        return redirect()->back();
     }
     public function load()
     {
@@ -124,7 +117,7 @@ class ProductController extends Controller
     {
         Product::destroy($id);
         $response['status'] = "sukses";
-
-        return Response::json($response);
+        return redirect()->back();
+        // return Response::json($response);
     }
 }

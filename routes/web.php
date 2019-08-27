@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 // route Project Cost
-Route::group(['prefix' => 'pc', 'as' => 'pc.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'pc', 'as' => 'pc.','middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'index', 'uses' => 'ProjectCostController@index']);
    Route::get('/{id}/est', ['as' => 'est', 'uses' => 'ProjectCostController@estimation']);
    Route::get('/{id}/real', ['as' => 'real', 'uses' => 'ProjectCostController@realization']);

@@ -42,10 +42,10 @@
                         <i class="fas fa-eye"></i>
                         Estimation
                       </a>
-                      <a href="#" class="btn btn-icon icon-left btn-dark">
+                      <!-- <a href="#" class="btn btn-icon icon-left btn-dark">
                         <i class="fas fa-file"></i>
                         Realization
-                      </a>
+                      </a> -->
                     </td>
                   </tr>
                   @endforeach

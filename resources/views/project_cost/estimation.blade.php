@@ -11,7 +11,7 @@
         </div>
 
         <div class="section-header-breadcrumb">
-            <h1>Project Code : <b style="color:#">#{{$projects->code}}</b></h1>
+            <h1>Project Code : <b>#{{$projects->code}}</b></h1>
 
         </div>
     </div>
@@ -42,7 +42,7 @@
                             <h4>Total Estimated Cost</h4>
                         </div>
                         <div id="totalCost" class="card-body">
-                            Rp {{number_format(array_sum($total))}}
+                            Rp {{number_format($total)}}
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     <div class="card-body">
                         <!-- <div class="clearfix mb-3"></div> -->
                         <div class="table-responsive">
-                            <table id="itemList" class="table table-striped">
+                            <table id="itemList" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -83,7 +83,7 @@
                                         <th>Qty</th>
                                         <th>Frequency</th>
                                         <th>Duration</th>
-                                        <th>Total</th>
+                                        <th>Subtotal Estimated Cost</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -98,8 +98,10 @@
                                         <td>{{$pc->durration}}</td>
                                         <td id="subtotal{{$pc->id}}">Rp {{number_format($pc->rate*$pc->freq*$pc->durration*$pc->qty)}}</td>
                                         <td>
+                                            <button class="btn btn-icon btn-success add" data-id="{{$pc->id}}"><i class="fa fa-plus"></i></button>
                                             <button class="btn btn-icon btn-primary edit" data-id="{{$pc->id}}"><i class="far fa-edit"></i></button>
                                             <button onclick="document.getElementById('destroyform{{$pc->id}}').submit()" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-info btn-icon detail" data-id="{{$pc->id}}"><i class="fa fa-eye"></i></button>
 
                                         </td>
                                     </tr>
@@ -120,7 +122,7 @@
     </div>
 </section>
 
-<!-- Modal  -->
+<!-- add Estimation Modal  -->
 <div class="modal fade" id="tambahEstimationModal" tabindex="-1" role="dialog" aria-labelledby="tambahEstimationModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -143,10 +145,10 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    IDR
+                                    Rp
                                 </div>
                             </div>
-                            <input id="rate" required type="number" name="rate" class="form-control currency">
+                            <input id="rate" required type="text" name="rate" class="form-control money">
                         </div>
                     </div>
 
@@ -169,38 +171,112 @@
         </div>
     </div>
 </div>
+
+<!-- add Realization Modal -->
+<div class="modal fade" id="addRealizationModal" tabindex="-1" role="dialog" aria-labelledby="addRealizationModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRealizationModalTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="addEstimationForm" action="{{route('pc.store.realization')}}" method="POST">
+                @csrf
+                <input id="projectCostId" required type="hidden" name="project_cost_id">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="section-title">Execution Date</div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                            </div>
+                            <input required name="execution_date" type="date" class="form-control daterange-cus">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="section-title">Cost</div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    Rp
+                                </div>
+                            </div>
+                            <input id="rate" required type="text" name="cost" class="form-control money">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="saveRealization" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @section('script.js')
 <script>
     $(document).ready(function() {
-        var table = $('#itemList').DataTable();
-
-        $('#itemList tbody').on('click', 'td', function() {
-            var tr = $(this).closest('tr');
-            var row = table.row(tr);
-
-            if (row.child.isShown()) {
-                row.child.hide();
-
-            } else {
-                row.child(format(row.data())).show();
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
             }
-
         });
 
+
+        var table = $('#itemList').DataTable();
+
+        $('#itemList tbody').on('click', '.detail', function() {
+            // console.log(1);
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+            var id = $(this).data('id');
+            // console.log(id);
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: "/pc/" + id + "/real",
+                    success: function(response) {
+                        // console.log(response);
+                        if (row.child.isShown()) {
+                            // This row is already open - close it
+                            row.child.hide();
+                        } else {
+                            // Open this row
+                            row.child(response).show();
+                        }
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        });
     });
 
-
-    $.ajaxSetup({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    function format(data) {
-        return t
+    function format() {
+        return '<table cellpadding = "5" cellspacing = "0" border = "0"style = "padding-left:50px;" > ' +
+            '<tr>' +
+            '<td>Full name:</td>' +
+            '<td>' + 'jallu' + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>Extension number:</td>' +
+            '<td>' + 'ganteng' + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>Extra info:</td>' +
+            '<td>And any further details here (images etc)...</td>' +
+            '</tr>' +
+            '</table>';
     }
 
     function load() {
+        var table = $('#itemList').DataTable();
+        var id = table.row.data('id');
         $.ajax({
             url: "",
             success: function(response) {
@@ -220,7 +296,7 @@
     });
 
 
-    // edit
+    // edit Estimation
     $('.edit').click(function(e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -235,6 +311,16 @@
             $('#durration').val(data.durration);
             $('#tambahEstimationModal').modal('show');
         });
+    });
+    // add realization
+    $('.add').click(function(e) {
+        e.preventDefault();
+        var id_project_cost = $(this).data('id');
+        $('#projectCostId').val(id_project_cost);
+        $('#saveRealization').html("Save");
+        $('#addRealizationTitle').html("Add Realization");
+        $('#addEstimationForm').trigger("reset");
+        $('#addRealizationModal').modal('show');
     });
 </script>
 @endsection
