@@ -28,14 +28,17 @@ $user = \Illuminate\Support\Facades\Auth::user();
       <li class="nav-item dropdown">
         <a href="nav-link"><i class="fas fa-chart-line"></i><span>Cashflow</span></a>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="{{ route('customer.index') }}"><i class="fas fa-users"></i><span>Customer</span></a>
+      </li>
 
       @if($user->role_id == 7 || $user->role_id == 6 )
       <li class="@if(Request::is('product/*'))active @endif nav-item dropdown">
-        <a class="nav-link" href="{{route('product.index')}}"><i class="fas fa-exclamation"></i> <span>Product</span></a>
+        <a class="nav-link" href="{{route('product.index')}}"><i class="fab fa-product-hunt"></i> <span>Product</span></a>
       </li>
       @if($user->role_id == 7)
       <li class="@if(Request::is('user/*'))active @endif nav-item dropdown">
-        <a class="nav-link" href="{{ route('user.index')}}"><i class="far fa-user"></i> <span>Employee</span></a>
+        <a class="nav-link" href="{{ route('user.index')}}"><i class="fas fa-user"></i> <span>Employee</span></a>
       </li>
       @endif
       @endif

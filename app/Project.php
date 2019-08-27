@@ -14,16 +14,13 @@ class Project extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function project_cost(Type $var = null)
+    public function project_cost()
     {
         return $this->hasMany('App\ProjectCost');
     }
-    protected $table ='projects';
 
     public function product_carts()
     {
         return $this->hasMany('App\ProductCart');
     }
-
-    
 }
