@@ -51,14 +51,15 @@ class ProductController extends Controller
         $tgl = Carbon::now()->format('ym');
         // $projectname = substr($request->project_name,1,3);
 
-        $product_code = "PRD" . $tgl . $product_number;
-        $products = Product::firstOrNew(['name' => $request->name]);
-        $products->name = $request->name;
         if ($request->product_code != null) {
-            $products->code = $request->product_code;
+            $product_code = $request->product_code;
         } else {
-            $products->code = $product_code;
+            $product_code = "PRD" . $tgl . $product_number;
         }
+        
+        $products = Product::firstOrNew(['code' => $product_code]);
+        $products->name = $request->name;
+        $products->code = $product_code;
         $products->price = str_replace(',','',$request->price);
         $products->categories_id = $request->categories;
         $success = $products->save();

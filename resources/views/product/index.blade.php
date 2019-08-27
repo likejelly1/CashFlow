@@ -53,7 +53,6 @@
       </div>
       <form id="addProductForm" action="{{route('product.store')}}" method="POST">
         @csrf
-        <input type="hidden" name="id" id="id">
         <input type="hidden" name="product_code" id="productCode">
         <div class="modal-body">
           <div class="form-group">

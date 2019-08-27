@@ -25,15 +25,19 @@ class ProjectCostController extends Controller
     public function estimation($id)
     {
         $projects = Project::find($id);
-        for ($i = 0; $i < count($projects->project_cost); $i++) {
-            $rate[$i] = $projects->project_cost[$i]->rate;
-            $qty[$i] = $projects->project_cost[$i]->qty;
-            $freq[$i] = $projects->project_cost[$i]->freq;
-            $durration[$i] = $projects->project_cost[$i]->durration;
-            $subtotal[$i] = $rate[$i] * $qty[$i] * $freq[$i] * $durration[$i];
-        }
-        if (!empty($subtotal)) {
-            $total = array_sum($subtotal);
+        if (!empty($projects->project_cost)) {
+            for ($i = 0; $i < count($projects->project_cost); $i++) {
+                $rate[$i] = $projects->project_cost[$i]->rate;
+                $qty[$i] = $projects->project_cost[$i]->qty;
+                $freq[$i] = $projects->project_cost[$i]->freq;
+                $durration[$i] = $projects->project_cost[$i]->durration;
+                $subtotal[$i] = $rate[$i] * $qty[$i] * $freq[$i] * $durration[$i];
+            }
+            if (!empty($subtotal)) {
+                $total = array_sum($subtotal);
+            } else {
+                $total = 0;
+            }
         } else {
             $total = 0;
         }
@@ -83,7 +87,7 @@ class ProjectCostController extends Controller
         $project_cost = ProjectCost::firstOrNew(['item' => $request->item]);
         $project_cost->project_id = $request->project_id;
         $project_cost->item = $request->item;
-        $project_cost->rate = str_replace(',','',$request->rate);
+        $project_cost->rate = str_replace(',', '', $request->rate);
         $project_cost->qty = $request->qty;
         $project_cost->freq = $request->freq;
         $project_cost->durration = $request->durration;
@@ -95,7 +99,7 @@ class ProjectCostController extends Controller
         $realization = new Tou();
         $realization->project_cost_id = $request->project_cost_id;
         $realization->execution_date = $request->execution_date;
-        $realization->cost = str_replace(',','',$request->cost);
+        $realization->cost = str_replace(',', '', $request->cost);
         $realization->save();
         return redirect()->back();
     }

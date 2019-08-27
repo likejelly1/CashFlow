@@ -16,6 +16,7 @@ class CreateProjectCostsTable extends Migration
         Schema::create('project_costs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('project_id');
+            $table->string('code');
             $table->string('item');
             $table->bigInteger('rate')->default(0);
             $table->integer('qty')->default(1);
