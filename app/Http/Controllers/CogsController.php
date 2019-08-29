@@ -78,4 +78,19 @@ class CogsController extends Controller
 
         return redirect()->route('cogs.show', ['id' => $request->project_id]);
     }
+
+    public function storeCustomer(Request $request)
+    {
+        $data = new Customer();
+        $data->institution_name = $request->institution_name;
+        $data->person_name = $request->person_name;
+        $data->position = $request->position;
+        $data->department = $request->department;
+        $data->email = $request->email;
+        $data->phone_number = $request->phone_number;
+
+        $data->save();
+        // return redirect()->route('cogs.create');
+        return redirect()->back()->with('message', 'Berhasil menambahkan data customer!');
+    }
 }

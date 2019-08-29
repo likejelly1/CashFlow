@@ -45,6 +45,7 @@ Route::group(['prefix' => 'product', 'as' => 'product.', 'middleware' => 'auth']
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'index', 'uses' => 'UserController@index']);
    Route::post('/', ['as' => 'store', 'uses' => 'UserController@store']);
+   Route::post('/storeRole', ['as' => 'storeRole', 'uses' => 'UserController@storeRole']);
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'UserController@destroy']);
    Route::get('/{id}/edit', ['as' => 'edit', 'uses' => 'UserController@edit']);
 });
@@ -57,6 +58,7 @@ Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], func
    Route::get('/addProject', ['as' => 'addProject', 'uses' => 'CogsController@addNew']);
    Route::post('/storeProject', ['as' => 'storeProject', 'uses' => 'CogsController@store']);
    Route::post('/storeProcart', ['as' => 'storeProcart', 'uses' => 'CogsController@storeProcart']);
+   Route::post('/storeCustomer', ['as' => 'storeCustomer', 'uses' => 'CogsController@storeCustomer']);
 });
 
 

@@ -7,10 +7,20 @@
         <!-- <div class="section-header-button">
             <button id="createEmloyee" class="btn btn-primary">Add New</button>
         </div> -->
+
     </div>
     <div class="section-body">
         <div class="row mt-4">
             <div class="col-12">
+                @if(session()->has('message'))
+                <div class="alert alert-success alert-has-icon">
+                    <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                    <div class="alert-body">
+                        <div class="alert-title">Success</div>
+                        {{ session()->get('message') }}
+                    </div>
+                </div>
+                @endif
                 <div class="card">
                     <div class="card-header">
                         <h4>All Items</h4>
@@ -62,6 +72,31 @@
 
 
 <!-- Modal  -->
+<!-- Add role popup -->
+<div class="modal fade" id="tambahRoleModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="tambahRoleModalTitle"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('user.storeRole')}}" method="post">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <label>Role Name</label>
+                        <input type="text" name="nama_role" class="form-control" id="nama_role" placeholder="Enter Role Name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add role popup end -->
+
+<!-- Add Employee Modal -->
 <div class="modal fade" id="tambahEmployeeModalLong" tabindex="-1" role="dialog" aria-labelledby="tambahEmployeeModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -89,6 +124,9 @@
                             <option value="{{$r->id}}">{{ucfirst($r->nama_role)}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" id="addRole" data-target="#tambahRoleModal"><i class="fas fa-plus"></i> Add New Role</button>
                     </div>
                     <div class="form-group">
                         <label>First Password</label>
@@ -143,7 +181,9 @@
             $('#saveButton').html("Create Employee");
             $('#addEmployeeForm').trigger("reset");
             $('#tambahEmployeeModalLongTitle').html("Add Employee");
+            $('#tambahRoleModalTitle').html("Add Role");
             $('#tambahEmployeeModalLong').modal('show');
+            $('#tambahRoleModal').modal('show');
         });
 
 

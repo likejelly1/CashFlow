@@ -49,6 +49,16 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
+    public function storeRole(Request $request)
+    {
+        $role = new Role();
+        $role->nama_role = $request->nama_role;
+        $role->save();
+
+        return redirect()->back()->with('message', 'Berhasil menambahkan role baru !');
+
+    }
+
     /**
      * Display the specified resource.
      *
