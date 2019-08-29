@@ -10,6 +10,7 @@ use App\Category;
 use App\Customer;
 use Auth;
 use Carbon\Carbon;
+use DB;
 
 class CogsController extends Controller
 {
@@ -19,25 +20,22 @@ class CogsController extends Controller
 
         return view('cogs.index2', compact('project'));
     }
-    public function getData($id)
+    public function getData($proj_id, $cat_id)
     {
-        $categories = Category::find($id);
-        // return $categories->product;
-        $p = $categories->product;
-        // for ($i = 0; $i < count($p); $i++) {
-        //     $pc[$i] = $p[$i]->product_carts;
-        // }
-        return $p;
-        // $product_cart = $categories->product->product_carts;
-        // return $product_cart;
-        // return view('cogs.cart', compact('product_carts'));
+        $products = Product::where('categories_id', $cat_id)->get();
+        $project = Project::find($proj_id);
+        $product_cart = DB::table('product_carts')
+        ->
+        return $project->product_carts()->whereIn('product_id', $products->id)->get();
     }
     public function show($id)
     {
         $project = Project::find($id);
         $product = Product::all();
         $category = Category::all();
-        return view('cogs.pages', compact('project', 'product', 'category'));
+        $product_carts = $project->product_carts;
+        // echo $product_carts;
+        return view('cogs.pages', compact('project', 'product', 'category', 'product_carts'));
     }
 
     public function addNew()
@@ -56,7 +54,7 @@ class CogsController extends Controller
             $booking_number = str_pad($lastBooking->id - 1, 5, 0, STR_PAD_LEFT);
         }
         $tgl = Carbon::now()->format('ym');
-        $projectname = substr($request->project_name, 1, 3);
+        $projectname = strtoupper(substr($request->name, 0, 3));
 
         $project_code = $projectname . $tgl . $booking_number;
 

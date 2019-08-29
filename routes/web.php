@@ -53,7 +53,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
 Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'project', 'uses' => 'CogsController@index']);
    Route::get('/show/{id}', ['as' => 'show', 'uses' => 'CogsController@show']);
-   Route::get('/getdata/{id}', ['as'=>'getdata', 'uses'=>'CogsController@getData']);
+   Route::get('/{proj_id}/getdata/{cat_id}', ['as'=>'getdata', 'uses'=>'CogsController@getData']);
    Route::get('/addProject', ['as' => 'addProject', 'uses' => 'CogsController@addNew']);
    Route::post('/storeProject', ['as' => 'storeProject', 'uses' => 'CogsController@store']);
    Route::post('/storeProcart', ['as' => 'storeProcart', 'uses' => 'CogsController@storeProcart']);

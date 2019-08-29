@@ -6,6 +6,7 @@ use App\Project;
 use App\ProjectCost;
 use App\Tou;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Response;
 
 class ProjectCostController extends Controller
@@ -84,8 +85,25 @@ class ProjectCostController extends Controller
      */
     public function storeEstimation(Request $request)
     {
-        $project_cost = ProjectCost::firstOrNew(['item' => $request->item]);
+        $lastPc = ProjectCost::orderBy('created_at', 'desc')->first();
+        if (!$lastPc) {
+            $Pc_number = str_pad(0, 3, 0, STR_PAD_LEFT);
+        } else {
+            $Pc_number = str_pad($lastPc->id, 3, 0, STR_PAD_LEFT);
+        }
+        $tgl = Carbon::now()->format('ym');
+        // $projectname = substr($request->project_name,1,3);
+
+        if ($request->code != null) {
+            $Pc_code = $request->code;
+        } else {
+            $Pc_code = "EST" . $tgl . $Pc_number;
+        }
+        // 
+        // 
+        $project_cost = ProjectCost::firstOrNew(['code' => $Pc_code]);
         $project_cost->project_id = $request->project_id;
+        $project_cost->code = $Pc_code;
         $project_cost->item = $request->item;
         $project_cost->rate = str_replace(',', '', $request->rate);
         $project_cost->qty = $request->qty;

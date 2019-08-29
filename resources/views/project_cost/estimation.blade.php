@@ -135,6 +135,8 @@
             <form id="addEstimationForm" action="{{route('pc.store.estimation')}}" method="POST">
                 @csrf
                 <input required type="hidden" name="project_id" value="{{$projects->id}}">
+                <input id="pcCode" type="hidden" name="code">
+
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="section-title">Item Name</div>
@@ -304,6 +306,7 @@
             $('#saveButton').html("Update Estimation");
             $('#tambahEstimationModalTitle').html("Edit Estimation");
             $('#addEstimationForm').trigger("reset");
+            $('#pcCode').val(data.code);
             $('#item').val(data.item);
             $('#rate').val(data.rate);
             $('#qty').val(data.qty);
