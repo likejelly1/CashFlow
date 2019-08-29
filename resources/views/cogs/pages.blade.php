@@ -68,6 +68,9 @@
           </div>
           <div class="card-body">
             <ul class="nav nav-tabs" id="myTab2" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="all-tab2" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">{{ucfirst('all products')}}</a>
+              </li>
               @foreach($category as $c)
               <li class="nav-item">
                 <a class="nav-link" data-id="{{$c->id}}" id="{{$c->name}}-tab2" data-toggle="tab" href="#{{$c->name}}" role="tab" aria-controls="{{$c->name}}" aria-selected="true">{{ucfirst($c->name)}}</a>
@@ -75,10 +78,9 @@
               @endforeach
             </ul>
             <div class="tab-content tab-bordered" id="myTab3Content">
-              @foreach($category as $cat)
-              <div class="tab-pane fade" id="{{$cat->name}}" role="tabpanel" aria-labelledby="{{$cat->name}}-tab2">
+              <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab2">
                 <!-- <div class="clearfix mb-3"></div> -->
-                <table id="projectDetail" class="table table-stripped table-responsive">
+                <table class="table table-stripped table-responsive">
                   <thead class="thead-dark">
                     <tr>
                       <th>#</th>
@@ -98,11 +100,28 @@
                     </tr>
                   </thead>
                   <tbody id="dataTable">
-                    @include('cogs.cart')
+                    @foreach($product_carts as $res)
+                    <tr>
+                      <td>{{$loop->iteration}}</td>
+                      <td>{{ $res->product->name }}</td>
+                      <td>{{ $res->qty }}</td>
+                      <td><a href="#">null</a></td>
+                      <td>{{ $res->product->price }}</td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                      <td><a href="#">null</a></td>
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
-              @endforeach
+
             </div>
           </div>
         </div>
@@ -124,7 +143,7 @@
         <form action="{{route('cogs.storeProcart')}}" method="post">
 
           {{csrf_field()}}
-          <input type="hidden" name="project_id" value="{{$project->id}}">
+          <input id="project_id" type="hidden" name="project_id" value="{{$project->id}}">
           <div class="form-group">
             <label for="desc">Product Description</label>
             <select class="form-control" name="product_id">
@@ -154,7 +173,7 @@
 @section('script.js')
 <script>
   $(document).ready(function() {
-    $('#projectDetail').DataTable();
+    $('.table').DataTable();
     $('#hardware-tab2').addClass("active");
     $('#hardware').addClass("active show");
     // $('#hardware').addClass("show");
@@ -162,8 +181,9 @@
   $('.nav-link').click(function(e) {
     e.preventDefault();
     var cat_id = $(this).data('id');
+    var proj_id = $('#project_id').val();
     // console.log(cat_id);
-    $.get("/cogs/getdata/" + cat_id, function(data) {
+    $.get("/cogs/" + proj_id + "/getdata/" + cat_id, function(data) {
       // $('#dataTable').html(data);
       console.log(data);
     });

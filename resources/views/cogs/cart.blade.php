@@ -1,4 +1,4 @@
-@foreach($project->product_carts as $res)
+@foreach($product_carts as $res)
 <tr>
     <td>{{$loop->iteration}}</td>
     <td>{{ $res->product->name }}</td>
