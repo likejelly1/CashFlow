@@ -25,8 +25,8 @@ $user = \Illuminate\Support\Facades\Auth::user();
       <li class="{{ Request::is('pnl*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('pnl.index') !!}"><i class="fas fa-balance-scale"></i><span>PnL</span></a>
       </li>
-      <li class="nav-item dropdown">
-        <a href="nav-link"><i class="fas fa-chart-line"></i><span>Cashflow</span></a>
+      <li class="{{ Request::is('cashflow*') ? 'active' : '' }}">
+        <a class="nav-link" href="{!! route('cashflow.index') !!}"><i class="fas fa-chart-line"></i><span>Cashflow</span></a>
       </li>
       <li class="{{ Request::is('customer*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('customer.index') !!}"><i class="fas fa-users"></i><span>Customer</span></a>

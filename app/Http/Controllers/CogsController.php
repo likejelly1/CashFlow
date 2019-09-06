@@ -24,8 +24,7 @@ class CogsController extends Controller
     {
         $products = Product::where('categories_id', $cat_id)->get();
         $project = Project::find($proj_id);
-        $product_cart = DB::table('product_carts')
-        ->
+        $product_cart = DB::table('product_carts');
         return $project->product_carts()->whereIn('product_id', $products->id)->get();
     }
     public function show($id)

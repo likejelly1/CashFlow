@@ -76,3 +76,17 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'auth
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CustomerController@destroy']);
 
 });
+
+Route::group(['prefix' => 'cashflow', 'as' => 'cashflow.', 'middleware' => 'auth'], function () {
+   Route::get('/', ['as' => 'index', 'uses' => 'CashflowController@index']);
+   Route::get('/{id}/show', ['as' => 'show', 'uses' => 'CashflowController@show']);
+   Route::get('/{id}/showOutflow', ['as' => 'showOutflow', 'uses' => 'CashflowController@showOutflow']);
+   Route::post('/store', ['as' => 'store', 'uses' => 'CashflowController@store']);
+   Route::post('/storeOut', ['as' => 'storeOut', 'uses' => 'CashflowController@storeOut']);
+   Route::get('/edit_in/{id}', ['as' => 'edit_in', 'uses' => 'CashflowController@edit_in']);
+   Route::put('/update/{id}', ['as' => 'update', 'uses' => 'CashflowController@update']);
+   Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CashflowController@destroy']);
+   Route::get('/edit_out/{id}', ['as' => 'edit_out', 'uses' => 'CashflowController@edit_out']);
+   Route::put('/updateOut/{id}', ['as' => 'updateOut', 'uses' => 'CashflowController@updateOut']);
+   Route::delete('/destroyOut/{id}', ['as' => 'destroyOut', 'uses' => 'CashflowController@destroyOut']);
+});
