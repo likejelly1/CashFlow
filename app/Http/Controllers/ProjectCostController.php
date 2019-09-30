@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CostSales;
 use App\Project;
 use App\ProjectCost;
 use App\Tou;
@@ -109,7 +110,9 @@ class ProjectCostController extends Controller
         $project_cost->qty = $request->qty;
         $project_cost->freq = $request->freq;
         $project_cost->durration = $request->durration;
-        $success = $project_cost->save();
+        $project_cost->save();
+
+        $project_cost->storeCostSales($request->project_id);
         return redirect()->back();
     }
     public function storeRealization(Request $request)

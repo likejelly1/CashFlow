@@ -23,4 +23,33 @@ class Project extends Model
     {
         return $this->hasMany('App\ProductCart');
     }
+    // public function gross_sales()
+    // {
+    //     return $this->hasMany('App\GrossSales');
+    // }
+    // public function negotiations()
+    // {
+    //     return $this->hasMany('App\Negotiation');
+
+    // }
+    // public function nett_saless()
+    // {
+    //     return $this->hasMany('App\NettSales');
+    // }
+    // public function cost_saless()
+    // {
+    //     return $this->hasMany('App\CostSales');
+    // }
+    // public function cost_products()
+    // {
+    //     return $this->hasMany('App\CostProduct');
+    // }
+    // public function commissions()
+    // {
+    //     return $this->hasMany('App\Commission');
+    // }
+    // public function sales_commissions()
+    // {
+    //     return $this->hasMany('App\SalesCommission');
+    // }
 }
