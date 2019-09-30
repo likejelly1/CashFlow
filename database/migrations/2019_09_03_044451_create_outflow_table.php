@@ -19,7 +19,6 @@ class CreateOutflowTable extends Migration
             $table->string('description');
             $table->date('execution_date');
             $table->bigInteger('cost');
-            $table->bigInteger('total')->nullable();
             $table->timestamps();
         });
     }

@@ -92,4 +92,11 @@ class CogsController extends Controller
         // return redirect()->route('cogs.create');
         return redirect()->back()->with('message', 'Berhasil menambahkan data customer!');
     }
+
+    public function destroy($id)
+    {
+        $projects = Project::where('id', $id)->first();
+        $projects->delete();
+        return redirect()->back();
+    }
 }

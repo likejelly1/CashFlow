@@ -59,6 +59,7 @@ Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], func
    Route::post('/storeProject', ['as' => 'storeProject', 'uses' => 'CogsController@store']);
    Route::post('/storeProcart', ['as' => 'storeProcart', 'uses' => 'CogsController@storeProcart']);
    Route::post('/storeCustomer', ['as' => 'storeCustomer', 'uses' => 'CogsController@storeCustomer']);
+   Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CogsController@destroy']);
 });
 
 
@@ -81,12 +82,12 @@ Route::group(['prefix' => 'cashflow', 'as' => 'cashflow.', 'middleware' => 'auth
    Route::get('/', ['as' => 'index', 'uses' => 'CashflowController@index']);
    Route::get('/{id}/show', ['as' => 'show', 'uses' => 'CashflowController@show']);
    Route::get('/{id}/showOutflow', ['as' => 'showOutflow', 'uses' => 'CashflowController@showOutflow']);
+   Route::get('/{id}/showReal', ['as' => 'showReal', 'uses' => 'CashflowController@showReal']);
+   Route::get('/{out_id}/detail/{proj_id}', ['as' => 'detail', 'uses' => 'CashflowController@detail']);
    Route::post('/store', ['as' => 'store', 'uses' => 'CashflowController@store']);
    Route::post('/storeOut', ['as' => 'storeOut', 'uses' => 'CashflowController@storeOut']);
    Route::get('/edit_in/{id}', ['as' => 'edit_in', 'uses' => 'CashflowController@edit_in']);
    Route::put('/update/{id}', ['as' => 'update', 'uses' => 'CashflowController@update']);
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CashflowController@destroy']);
-   Route::get('/edit_out/{id}', ['as' => 'edit_out', 'uses' => 'CashflowController@edit_out']);
-   Route::put('/updateOut/{id}', ['as' => 'updateOut', 'uses' => 'CashflowController@updateOut']);
    Route::delete('/destroyOut/{id}', ['as' => 'destroyOut', 'uses' => 'CashflowController@destroyOut']);
 });

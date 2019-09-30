@@ -6,6 +6,7 @@ use App\Inflow;
 use App\Project;
 use App\Outflow;
 use Illuminate\Http\Request;
+use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 
@@ -16,6 +17,8 @@ class CashflowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // view main cashflow
     public function index()
     {
         $projects = Project::all();
@@ -40,7 +43,7 @@ class CashflowController extends Controller
      */
 
 
-
+    // store data to db inflow 
     public function store(Request $request)
     {
 
@@ -50,21 +53,25 @@ class CashflowController extends Controller
         $inflow->execution_date = $request->execution_date;
         $inflow->percent = $request->percent;
         $inflow->net_sales = 300000;
-
         $inflow->save();
         return redirect()->back();
     }
 
+    // store data to db outflow
     public function storeOut(Request $request)
     {
         $outflow = new Outflow();
         $outflow->project_id = $request->project_id;
         $outflow->description = $request->description;
         $outflow->execution_date = $request->execution_date;
+        if ($request->cost == '') {
+            $request->cost = '0';
+        }
         $outflow->cost = str_replace(',', '', $request->cost);
         $outflow->save();
         return redirect()->back();
     }
+
 
     /**
      * Display the specified resource.
@@ -73,11 +80,13 @@ class CashflowController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    // view inflow
     public function show($id)
     {
-
         $projects = Project::find($id);
-        // return $projects;
+        $inflow = Inflow::where('project_id', $id)->get();
+
+        // all total inflow
         if (!empty($projects->inflow)) {
             for ($i = 0; $i < count($projects->inflow); $i++) {
                 $percent[$i] = $projects->inflow[$i]->percent;
@@ -92,42 +101,133 @@ class CashflowController extends Controller
         } else {
             $total = 0;
         }
-        $inflow = Inflow::where('project_id', $id)->get();
-        return view('cashflow.inflow', compact('inflow', 'projects', 'total'));
+
+        // total per month
+        $monthlyIn = DB::table('inflow')
+            ->select(DB::raw('SUM(percent * net_sales / 100) as total_monthlyIn, MONTHNAME(execution_date) as month, YEAR(execution_date) as year'))
+            ->where('project_id', $id)
+            ->groupBy(DB::raw('YEAR(execution_date) ASC, MONTHNAME(execution_date) ASC'))->get();
+
+        return view('cashflow.inflow', compact('inflow', 'projects', 'total', 'monthlyIn'));
     }
 
+    // view outflow
     public function showOutflow($id)
     {
         $projects = Project::find($id);
+        $inflow = Inflow::find($id);
         $outflow = Outflow::where('project_id', $id)->get();
-        $dates = Outflow::select('id', 'execution_date')
-            ->get()
-            ->groupBy(function ($date) {
-                // return Carbon::parse($date->created_at)->format('Y'); // grouping by years
-                return Carbon::parse($date->created_at)->format('m'); // grouping by months
-            });
-        return view('cashflow.outflow', compact('outflow', 'projects', 'dates'));
+
+        // all total outflow
+        if (!empty($projects->outflow)) {
+            for ($i = 0; $i < count($projects->outflow); $i++) {
+                $description[$i] = $projects->outflow[$i]->description;
+                $cost[$i] = $projects->outflow[$i]->cost;
+            }
+            if (!empty($cost)) {
+                $total = array_sum($cost);
+            } else {
+                $total = 0;
+            }
+        } else {
+            $total = 0;
+        }
+
+        // detail cost per description
+        $outflow = DB::table('outflow')
+            ->select(DB::raw('sum(cost) as total_cost, description'))
+            ->where('project_id', $id)
+            ->groupBy('description')
+            ->get();
+
+        // total per month
+        $monthlyOut = DB::table('outflow')
+            ->select(DB::raw('SUM(cost) as total_monthlyOut, MONTHNAME(execution_date) as month, YEAR(execution_date) as year'))
+            ->where('project_id', $id)
+            ->groupBy(DB::raw('YEAR(execution_date) ASC, MONTHNAME(execution_date) ASC'))
+            ->get();
+
+        return view('cashflow.outflow', compact('outflow', 'inflow', 'projects', 'monthlyOut', 'total'));
     }
 
+    // view realization
+    public function showReal($id)
+    {
+        $projects = Project::find($id);
+        $outflow = Outflow::where('project_id', $id)->get();
+        $inflow = Inflow::where('project_id', $id)->get();
+
+        //total per month surplus
+        $surplus = DB::table('inflow')
+            ->join('outflow', DB::Raw('EXTRACT(YEAR_MONTH FROM inflow.execution_date)'), '=', DB::Raw('EXTRACT(YEAR_MONTH FROM outflow.execution_date)'))
+            ->select(DB::raw('SUM(inflow.percent * inflow.net_sales / 100) as total_in, SUM(outflow.cost) as total_out, MONTHNAME(outflow.execution_date) as month, YEAR(outflow.execution_date) as year'))
+            ->where([
+                ['inflow.project_id', $id],
+                ['outflow.project_id', $id],
+            ])
+            ->groupBy(DB::raw('MONTHNAME(outflow.execution_date) desc, YEAR(outflow.execution_date) desc, outflow.project_id'))
+            // ->orderBy(DB::raw('month(outflow.execution_date'))
+            ->get();
+
+        for ($i = 0; $i < sizeof($surplus); $i++) {
+            if ($surplus[$i]->total_in == 0 && $surplus[$i]->total_out == 0) {
+                $surplus[$i]->total_surp = 0;
+            } else {
+                $surplus[$i]->total_surp = $surplus[$i]->total_in - $surplus[$i]->total_out;
+            }
+        }
+        // total surplus
+        if (!empty($projects->outflow) && !empty($projects->inflow)) {
+            $inflowArray = [];
+            foreach ($projects->inflow as $key => $pro) {
+                $inflowArray[$key] = $pro->percent * $pro->net_sales / 100;
+            }
+
+            $outflowArray = [];
+            foreach ($projects->outflow as $key => $pro) {
+                $outflowArray[$key] = $pro->cost;
+            }
+
+            $totalInflow = array_sum($inflowArray);
+            $totalOutflow = array_sum($outflowArray);
+
+            $total = $totalInflow - $totalOutflow;
+        }
+
+        for ($i = 0; $i < sizeOf($surplus); $i++) {
+            if ($i == 0) {
+                $cum_surp[$i] = $surplus[$i]->total_surp;
+            } else {
+                $cum_surp[$i] = $cum_surp[$i - 1] + $surplus[$i]->total_surp;
+            }
+        }
+
+        return view('cashflow.realization', compact('projects', 'outflow', 'inflow', 'surplus', 'total_in', 'total_out', 'total_surp', 'total', 'cum_surp'));
+    }
+
+    // detail cost per description outflow
+    public function detail($out_id, $proj_id)
+    {
+        $project = Project::find($proj_id);
+        $outflow = Outflow::where('description', $out_id)
+            ->where('project_id', $proj_id)
+            ->get();
+        return view('cashflow.detail', compact('outflow', 'projects'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // edit inflow
     public function edit_in($id)
     {
-
         $inflow = Inflow::where('id', $id)->get();
         return view('cashflow.edit_in', compact('inflow'));
     }
 
-    public function edit_out($id)
-    {
-
-        $outflow = Outflow::where('id', $id)->get();
-        return view('cashflow.edit_out', compact('outflow'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -136,6 +236,8 @@ class CashflowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // update inflow
     public function update(Request $request, $id)
     {
         $inflow = Inflow::find($id);
@@ -148,17 +250,6 @@ class CashflowController extends Controller
         return redirect()->route('cashflow.show', ['id' => $request->project_id]);
     }
 
-    public function updateOut(Request $request, $id)
-    {
-        $outflow = Outflow::find($id);
-        $outflow->project_id = $request->project_id;
-        $outflow->description = $request->description;
-        $outflow->execution_date = $request->execution_date;
-        $outflow->cost = $request->cost;
-
-        $outflow->save();
-        return redirect()->route('cashflow.showOutflow', ['id' => $request->project_id]);
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -166,6 +257,8 @@ class CashflowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // delete inflow
     public function destroy($id)
     {
         $inflow = Inflow::where('id', $id)->first();
@@ -173,6 +266,7 @@ class CashflowController extends Controller
         return redirect()->back();
     }
 
+    // delete outflow
     public function destroyOut($id)
     {
         $outflow = Outflow::where('id', $id)->first();

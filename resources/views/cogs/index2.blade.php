@@ -13,7 +13,7 @@
           <div class="card-header">
             <h4>List Project</h4>
             <div class="card-header-action">
-              <a href="{{ route('cogs.addProject')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Project</a>
+              <a href="{{ route('cogs.addProject')}}" class="btn btn-danger"><i class="fas fa-plus"></i> Add New Project</a>
             </div>
           </div>
 
@@ -40,7 +40,15 @@
                     <td>{{ $p->customer->institution_name}}</td>
                     <td>{{ $p->user->name }}</td>
                     <td>
-                      <a href="{{ route('cogs.show', [ 'id' => $p->id ])}}" class="btn btn-info"><i class="fas fa-eye"></i> View</a>
+
+                      <form action="{{route('cogs.destroy', $p->id)}}" method="post">
+                        <a href="{{ route('cogs.show', [ 'id' => $p->id ])}}" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="View"><i class="fas fa-eye"></i></a>
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="btn btn-icon delete btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </form>
 
                     </td>
                   </tr>

@@ -20,6 +20,7 @@ class CreateInflowTable extends Migration
             $table->date('execution_date');
             $table->float('percent');
             $table->bigInteger('net_sales');
+           
             $table->timestamps();
         });
     }

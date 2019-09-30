@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Outflow;
 use App\Project;
 use App\ProjectCost;
 use App\Tou;
@@ -119,6 +120,17 @@ class ProjectCostController extends Controller
         $realization->execution_date = $request->execution_date;
         $realization->cost = str_replace(',', '', $request->cost);
         $realization->save();
+
+        $tou = Tou::where('project_cost_id', $request->project_cost_id)->first();
+
+        $co = new Outflow();
+        $co->project_id = $tou->project_cost->project_id;
+        $co->description = 'Project Cost';
+        $co->execution_date = $request->execution_date;
+        $co->cost = str_replace(',', '', $request->cost);
+        $co->save();
+
+
         return redirect()->back();
     }
 

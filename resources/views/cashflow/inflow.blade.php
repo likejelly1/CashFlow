@@ -4,7 +4,11 @@
 <section class="section">
     <div class="section-header">
         <h1>Cash in Flow</h1>
-
+        <!-- <div class="section-header-breadcrumb" style="margin-left:3px; margin-top:10px;">
+            <div class="breadcrumb-item"></div>
+            <div class="breadcrumb-item"><a href="#">Cash Out Flow</a></div>
+            <div class="breadcrumb-item"><a href="#">Realization Summary</a></div>
+        </div> -->
         <div class="section-header-breadcrumb">
             <h1>Project Code : <b>#{{$projects->code}}</b></h1>
         </div>
@@ -50,10 +54,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Sum of Bill Total</h4>
+                            <h4>Total Cash-in-flow</h4>
                         </div>
                         <div class="card-body">
-                            {{number_format($total)}}
+                            Rp {{number_format($total)}}
                         </div>
                     </div>
                 </div>
@@ -80,13 +84,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>All Items</h4>
+                        <h4>All Billings</h4>
                         <div class="card-header-action">
-                            <button type="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus"></i> Add New</button>
+                            <button type="button" class="btn btn-danger text-right" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus"></i> Add New</button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- <div class="clearfix mb-3"></div> -->
                         <div class="table-responsive">
                             <table id="itemList" class="table table-hover">
                                 <thead>
@@ -105,10 +108,10 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$in->billing}}</td>
-                                        <td>{{$in->execution_date}}</td>
+                                        <td>{{Carbon\Carbon::parse($in->execution_date)->format('M-Y-d')}}</td>
                                         <td>{{$in->percent}}</td>
                                         <td>{{$in->net_sales}}</td>
-                                        <td id="sub_total{{$in->id}}">
+                                        <td>
                                             Rp {{number_format($in->percent*$in->net_sales/100)}}
                                         </td>
                                         <td>
@@ -124,7 +127,41 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Summary Total</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="totalList" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Bulan</th>
+                                        <th>Tahun</th>
+                                        <th>Total</th>
+                                        t
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($monthlyIn as $mi)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $mi->month }} </td>
+                                        <td>{{ $mi->year }}</td>
+                                        <td>Rp {{number_format($mi->total_monthlyIn)}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -147,7 +184,6 @@
             <form action="{{ route('cashflow.store')}}" method="post">
                 {{csrf_field()}}
                 <input required type="hidden" name="project_id" value="{{$projects->id}}">
-
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Billing</label>
@@ -178,8 +214,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -190,6 +226,9 @@
 <script>
     $(document).ready(function() {
         $('#itemList').DataTable();
+    })
+    $(document).ready(function() {
+        $('#totalList').DataTable();
     })
 </script>
 @endsection

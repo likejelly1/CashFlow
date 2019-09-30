@@ -11,53 +11,22 @@
     </div>
     <div class="section-body">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary">
-                        <i class="fas fa-list h2"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4></h4>
-                        </div>
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
-                        <i class="fas fa-percentage"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4></h4>
-
-                        </div>
-
-                        <div class="card-body">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
                         <i class="far fa-money-bill-alt h2"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4></h4>
+                            <h4>Total Cash-out-flow</h4>
                         </div>
                         <div class="card-body">
-
+                            Rp {{number_format($total)}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-success">
                         <i class="fa fa-university h4 text-white"></i>
@@ -80,7 +49,7 @@
                     <div class="card-header">
                         <h4>All Items</h4>
                         <div class="card-header-action">
-                            <button type="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus"></i> Add New</button>
+                            <button type="button" class="btn btn-danger text-right" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus"></i> Add New</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -91,8 +60,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Description</th>
-                                        <th>Schedule</th>
-                                        <th>Cost</th>
+                                        <th>Total</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -101,17 +69,9 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$of->description}}</td>
-                                        <td>{{$of->execution_date}}</td>
-                                        <td>{{$of->cost}}</td>
+                                        <td>Rp {{number_format($of->total_cost)}}</td>
                                         <td>
-                                            <form action="{{ route('cashflow.destroyOut', $of->id)}}" method="post">
-                                                <a href="{{route('cashflow.edit_out', $of->id)}}" class="btn btn-icon btn-primary" data-id="{{$of->id}}" data-toggle="tooltip" title="Edit"><i class="far fa-edit"></i></a>
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <button class="btn btn-icon btn-danger" data-id="{{$of->id}}" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </button>
-                                            </form>
+                                            <button class="btn btn-info btn-icon expand" data-id="{{$of->description}}" data-toggle="tooltip" title="View" data-placement="bottom"><i class="fa fa-eye"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -131,30 +91,26 @@
                         <h4>Summary Total</h4>
                     </div>
                     <div class="card-body">
-                        <!-- <div class="clearfix mb-3"></div> -->
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table id="totalList" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Bulan</th>
+                                        <th>Tahun</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach ($monthlyOut as $mo)
                                     <tr>
-                                        <td></td>
-                                       
-                                        <td>
-                                          {{$dates}}  
-                                        </td>
-                                       
-                                        <td></td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $mo->month }} </td>
+                                        <td>{{ $mo->year }}</td>
+                                        <td>Rp {{number_format($mo->total_monthlyOut)}}</td>
                                     </tr>
-
+                                    @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -181,7 +137,19 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Description Item</label>
-                        <input type="text" class="form-control form-control-lg" name="description">
+                        <!-- <input type="text" class="form-control form-control-lg" name="description"> -->
+                        <select name="description" class="form-control form-control-lg">
+                            <option value="Hardware">Hardware</option>
+                            <option value="Software">Software</option>
+                            <option value="Application">Application</option>
+                            <option value="MIB's Solution">MIB's Solution</option>
+                            <option value="MIB's Professional Services">MIB's Professional Services</option>
+                            <option value="MIB's Maintenance Service">MIB's Maintenance Service</option>
+                            <option value="Biaya Administrasi">Biaya Administrasi</option>
+                            <option value="Bank Garansi">Bank Garansi</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Biaya Lain-lain">Biaya Lain-lain</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Date</label>
@@ -202,26 +170,58 @@
                                     Rp
                                 </div>
                             </div>
-                            <input type="number" name="cost" class="form-control form-control-md">
+                            <input type="text" name="cost" class="form-control form-control-md money">
                         </div>
 
                     </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
 @section('script.js')
 <script>
     $(document).ready(function() {
         $('#itemList').DataTable();
     })
+    $(document).ready(function() {
+        $('#totalList').DataTable();
+    })
+    var table = $('#itemList').DataTable();
+
+    $('#itemList tbody').on('click', '.expand', function() {
+        // console.log(1);
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        var id = $(this).data('id');
+        var proj_id = '{{$projects->id}}';
+        // console.log(id);
+        try {
+            $.ajax({
+                type: "GET",
+                url: "/cashflow/" + id + "/detail/" + proj_id,
+                success: function(response) {
+                    // console.log(response);
+                    if (row.child.isShown()) {
+                        // This row is already open - close it
+                        row.child.hide();
+                    } else {
+                        // Open this row
+                        row.child(response).show();
+                    }
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    });
 </script>
+
 @endsection
 @endsection

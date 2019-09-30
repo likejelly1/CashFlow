@@ -46,6 +46,10 @@
                                                 <i class="fas fa-eye"></i>
                                                 Out-flow
                                             </a>
+                                            <a href="{{ route('cashflow.showReal',['id'=>$p->id])}}" class="btn btn-info btn-icon icon-left">
+                                                <i class="fas fa-eye"></i>
+                                                Realization
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
