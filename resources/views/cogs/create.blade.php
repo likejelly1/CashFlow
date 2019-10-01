@@ -29,11 +29,11 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label>Project Name</label>
-                                <input type="text" name="name" class="form-control form-control-lg">
+                                <input required type="text" name="name" class="form-control form-control-lg">
                             </div>
                             <div class="form-group">
                                 <label>Customer Name</label>
-                                <select class="form-control" name="customer_id">
+                                <select required class="form-control" name="customer_id">
                                     @foreach ($c as $customer)
                                     <option value="{{ $customer->id }}">{{$customer->institution_name}}</option>
                                     @endforeach
@@ -50,7 +50,6 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             </div>
                             <div class="card-footer text-right">
                                 <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                                <button class="btn btn-secondary" type="reset">Reset</button>
                             </div>
                         </form>
                     </div>

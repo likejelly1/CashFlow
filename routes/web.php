@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-   return redirect('/home');
+   return redirect()->route('home');
 });
 
 Auth::routes();
@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 // route Project Cost
-Route::group(['prefix' => 'pc', 'as' => 'pc.','middleware' => 'auth'], function () {
+Route::group(['prefix' => 'pc', 'as' => 'pc.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'index', 'uses' => 'ProjectCostController@index']);
    Route::get('/{id}/est', ['as' => 'est', 'uses' => 'ProjectCostController@estimation']);
    Route::get('/{id}/real', ['as' => 'real', 'uses' => 'ProjectCostController@realization']);
@@ -54,18 +54,29 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
 Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'project', 'uses' => 'CogsController@index']);
    Route::get('/show/{id}', ['as' => 'show', 'uses' => 'CogsController@show']);
-   Route::get('/{proj_id}/getdata/{cat_id}', ['as'=>'getdata', 'uses'=>'CogsController@getData']);
+   Route::get('/{proj_id}/getdata/{cat_id}', ['as' => 'getdata', 'uses' => 'CogsController@getData']);
    Route::get('/addProject', ['as' => 'addProject', 'uses' => 'CogsController@addNew']);
    Route::post('/storeProject', ['as' => 'storeProject', 'uses' => 'CogsController@store']);
    Route::post('/storeProcart', ['as' => 'storeProcart', 'uses' => 'CogsController@storeProcart']);
    Route::post('/storeCustomer', ['as' => 'storeCustomer', 'uses' => 'CogsController@storeCustomer']);
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CogsController@destroy']);
+   Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'CogsController@edit']);
+   Route::get('/{id}/getAllProduct', ['as' => 'getProducts', 'uses' => 'CogsController@getAllProduct']);
 });
 
 
 // route PnL
 Route::group(['prefix' => 'pnl', 'as' => 'pnl.', 'middleware' => 'auth'], function () {
    Route::get('/', ['as' => 'index', 'uses' => 'PnlController@index']);
+   Route::get('/{id}', ['as' => 'show', 'uses' => 'PnlController@show']);
+   Route::post('/storeNegotiation', ['as' => 'storeNegotiation', 'uses' => 'PnlController@storeNegotiation']);
+   Route::post('/storeCostSales', ['as' => 'storeCostSales', 'uses' => 'PnlController@storeCostSales']);
+   Route::post('/storeCommission', ['as' => 'storeCommission', 'uses' => 'PnlController@storeCommission']);
+   Route::post('/storeSalesCommission', ['as' => 'storeSalesCommission', 'uses' => 'PnlController@storeSalesCommission']);
+   Route::get('/editNegotiation/{id}', ['as' => 'editNegotiation', 'uses' => 'PnlController@editNegotiation']);
+   Route::get('/editCostSales/{id}', ['as' => 'editCostSales', 'uses' => 'PnlController@editCostSales']);
+   Route::get('/editCommission/{id}', ['as' => 'editCommission', 'uses' => 'PnlController@editCommission']);
+   Route::get('/editSalesCommission/{id}', ['as' => 'editSalesCommission', 'uses' => 'PnlController@editSalesCommission']);
 });
 
 Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'auth'], function () {
@@ -75,7 +86,6 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'auth
    Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'CustomerController@edit']);
    Route::put('/update/{id}', ['as' => 'update', 'uses' => 'CustomerController@update']);
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CustomerController@destroy']);
-
 });
 
 Route::group(['prefix' => 'cashflow', 'as' => 'cashflow.', 'middleware' => 'auth'], function () {

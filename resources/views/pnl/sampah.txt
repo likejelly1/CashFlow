@@ -1,0 +1,47 @@
+<div class="row">
+            @foreach($categories as $c)
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2 class="section-title">{{$c->name}}</h2>
+                        </div>
+                    </div>
+                    <div class="card-stats">
+                        <div class="card-stats-items">
+                            <div class="row">
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count">Rp {{number_format(500000000)}}</div>
+                                    <div class="card-stats-item-label">Quotation</div>
+                                </div>
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count">Rp {{number_format(500000000)}}</div>
+                                    <div class="card-stats-item-label">Negotiation</div>
+                                </div>
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count">Rp {{number_format(500000000)}}</div>
+                                    <div class="card-stats-item-label">Nett Sales</div>
+                                </div>
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count">Rp {{number_format(500000000)}}</div>
+                                    <div class="card-stats-item-label">PPN Total</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix mb-4"></div>
+                    <div class="card-icon shadow-primary bg-primary">
+                        <i class="fas fa-archive"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Contract Price</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp {{number_format(500000000)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
