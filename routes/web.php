@@ -61,6 +61,7 @@ Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], func
    Route::post('/storeCustomer', ['as' => 'storeCustomer', 'uses' => 'CogsController@storeCustomer']);
    Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'CogsController@edit']);
    Route::get('/{id}/getAllProduct', ['as' => 'getProducts', 'uses' => 'CogsController@getAllProduct']);
+   Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CogsController@destroy']);
 });
 
 
@@ -85,4 +86,18 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'auth
    Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'CustomerController@edit']);
    Route::put('/update/{id}', ['as' => 'update', 'uses' => 'CustomerController@update']);
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CustomerController@destroy']);
+});
+
+Route::group(['prefix' => 'cashflow', 'as' => 'cashflow.', 'middleware' => 'auth'], function () {
+   Route::get('/', ['as' => 'index', 'uses' => 'CashflowController@index']);
+   Route::get('/{id}/show', ['as' => 'show', 'uses' => 'CashflowController@show']);
+   Route::get('/{id}/showOutflow', ['as' => 'showOutflow', 'uses' => 'CashflowController@showOutflow']);
+   Route::get('/{id}/showReal', ['as' => 'showReal', 'uses' => 'CashflowController@showReal']);
+   Route::get('/{out_id}/detail/{proj_id}', ['as' => 'detail', 'uses' => 'CashflowController@detail']);
+   Route::post('/store', ['as' => 'store', 'uses' => 'CashflowController@store']);
+   Route::post('/storeOut', ['as' => 'storeOut', 'uses' => 'CashflowController@storeOut']);
+   Route::get('/edit_in/{id}', ['as' => 'edit_in', 'uses' => 'CashflowController@edit_in']);
+   Route::put('/update/{id}', ['as' => 'update', 'uses' => 'CashflowController@update']);
+   Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CashflowController@destroy']);
+   Route::delete('/destroyOut/{id}', ['as' => 'destroyOut', 'uses' => 'CashflowController@destroyOut']);
 });

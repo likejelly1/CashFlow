@@ -52,4 +52,14 @@ class Project extends Model
     // {
     //     return $this->hasMany('App\SalesCommission');
     // }
+
+    public function inflow()
+    {
+        return $this->hasMany('App\Inflow');
+    }
+
+    public function outflow()
+    {
+        return $this->hasMany('App\Outflow');
+    }
 }

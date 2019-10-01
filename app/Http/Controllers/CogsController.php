@@ -230,4 +230,10 @@ class CogsController extends Controller
         }
         return $total;
     }
+    public function destroy($id)
+    {
+        $projects = Project::where('id', $id)->first();
+        $projects->delete();
+        return redirect()->back();
+    }
 }

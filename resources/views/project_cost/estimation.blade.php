@@ -1,13 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-
-
 <section class="section">
     <div class="section-header">
         <h1>Estimation Cost</h1>
         <div class="section-header-button">
-            <button id="createEstimation" class="btn btn-primary">Add New Item</button>
+            <button id="createEstimation" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Item</button>
         </div>
 
         <div class="section-header-breadcrumb">
