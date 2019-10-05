@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Inflow;
+use App\NettSales;
 use App\Project;
 use App\Outflow;
 use Illuminate\Http\Request;
@@ -46,13 +47,14 @@ class CashflowController extends Controller
     // store data to db inflow 
     public function store(Request $request)
     {
-
+        $nettsales = new NettSales();
+        $total_nett_sales = (empty($nettsales->getTotal($request->project_id)->total_amount)) ? 0 : $nettsales->getTotal($request->project_id)->total_amount;
         $inflow = new Inflow();
         $inflow->project_id = $request->project_id;
         $inflow->billing = $request->billing;
         $inflow->execution_date = $request->execution_date;
         $inflow->percent = $request->percent;
-        $inflow->net_sales = 300000;
+        $inflow->subtotal = $request->percent / 100 * $total_nett_sales;
         $inflow->save();
         return redirect()->back();
     }
@@ -85,13 +87,14 @@ class CashflowController extends Controller
     {
         $projects = Project::find($id);
         $inflow = Inflow::where('project_id', $id)->get();
+        $nettsales = new NettSales();
+        $total_nett_sales = (empty($nettsales->getTotal($id)->total_amount)) ? 0 : $nettsales->getTotal($id)->total_amount ;
 
         // all total inflow
         if (!empty($projects->inflow)) {
             for ($i = 0; $i < count($projects->inflow); $i++) {
                 $percent[$i] = $projects->inflow[$i]->percent;
-                $net_sales[$i] = $projects->inflow[$i]->net_sales;
-                $sub_total[$i] = $percent[$i] * $net_sales[$i] / 100;
+                $sub_total[$i] = $percent[$i] / 100 * $total_nett_sales;
             }
             if (!empty($sub_total)) {
                 $total = array_sum($sub_total);
@@ -104,11 +107,11 @@ class CashflowController extends Controller
 
         // total per month
         $monthlyIn = DB::table('inflow')
-            ->select(DB::raw('SUM(percent * net_sales / 100) as total_monthlyIn, MONTHNAME(execution_date) as month, YEAR(execution_date) as year'))
+            ->select(DB::raw('SUM(subtotal) as total_monthlyIn, MONTHNAME(execution_date) as month, YEAR(execution_date) as year'))
             ->where('project_id', $id)
             ->groupBy(DB::raw('YEAR(execution_date) ASC, MONTHNAME(execution_date) ASC'))->get();
 
-        return view('cashflow.inflow', compact('inflow', 'projects', 'total', 'monthlyIn'));
+        return view('cashflow.inflow', compact('inflow', 'projects', 'total', 'monthlyIn', 'total_nett_sales'));
     }
 
     // view outflow
@@ -117,6 +120,7 @@ class CashflowController extends Controller
         $projects = Project::find($id);
         $inflow = Inflow::find($id);
         $outflow = Outflow::where('project_id', $id)->get();
+
 
         // all total outflow
         if (!empty($projects->outflow)) {
@@ -160,13 +164,12 @@ class CashflowController extends Controller
         //total per month surplus
         $surplus = DB::table('inflow')
             ->join('outflow', DB::Raw('EXTRACT(YEAR_MONTH FROM inflow.execution_date)'), '=', DB::Raw('EXTRACT(YEAR_MONTH FROM outflow.execution_date)'))
-            ->select(DB::raw('SUM(inflow.percent * inflow.net_sales / 100) as total_in, SUM(outflow.cost) as total_out, MONTHNAME(outflow.execution_date) as month, YEAR(outflow.execution_date) as year'))
+            ->select(DB::raw('SUM(subtotal) as total_in , SUM(outflow.cost) as total_out, MONTHNAME(outflow.execution_date) as month, YEAR(outflow.execution_date) as year'))
             ->where([
                 ['inflow.project_id', $id],
                 ['outflow.project_id', $id],
             ])
-            ->groupBy(DB::raw('MONTHNAME(outflow.execution_date) desc, YEAR(outflow.execution_date) desc, outflow.project_id'))
-            // ->orderBy(DB::raw('month(outflow.execution_date'))
+            ->groupBy(DB::raw('MONTHNAME(outflow.execution_date) desc, YEAR(outflow.execution_date) desc'))
             ->get();
 
         for ($i = 0; $i < sizeof($surplus); $i++) {
@@ -180,7 +183,7 @@ class CashflowController extends Controller
         if (!empty($projects->outflow) && !empty($projects->inflow)) {
             $inflowArray = [];
             foreach ($projects->inflow as $key => $pro) {
-                $inflowArray[$key] = $pro->percent * $pro->net_sales / 100;
+                $inflowArray[$key] = $pro->subtotal;
             }
 
             $outflowArray = [];
@@ -193,7 +196,7 @@ class CashflowController extends Controller
 
             $total = $totalInflow - $totalOutflow;
         }
-
+        // total per mont cummulative surplus
         for ($i = 0; $i < sizeOf($surplus); $i++) {
             if ($i == 0) {
                 $cum_surp[$i] = $surplus[$i]->total_surp;

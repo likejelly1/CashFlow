@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use DB;
 
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class ProjectCost extends Model
     public function getTotal($project_id)
     {
         return DB::table('project_costs')
-            ->select(DB::raw('sum(amount) as total_amount'))
+            ->select(DB::raw('sum(rate) as total_amount'))
             ->groupBy('project_id')
             ->where('project_id', $project_id)
             ->first();
@@ -34,6 +35,5 @@ class ProjectCost extends Model
         $c->getTotalSalesComissionByPercent(100, $project_id);
         $c->percent = 100;
         return $c->save();
-
     }
 }

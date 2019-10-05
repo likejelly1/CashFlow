@@ -5,10 +5,8 @@ $user = \Illuminate\Support\Facades\Auth::user();
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Form New Project</h1>
-        <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('cogs.project')}}">List Project</a></div>
-        </div>
+        <a href="{{ route('cogs.project')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+        <h1 style="padding-left:10px">Form New Project</h1>
     </div>
 
     <div class="section-body">
@@ -40,7 +38,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus"></i> Add New Customer</button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tambahModal"><i class="fas fa-plus"></i> Add New Customer</button>
                             </div>
                             <div class="form-group">
                                 <label>Author</label>
@@ -65,9 +63,6 @@ $user = \Illuminate\Support\Facades\Auth::user();
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add New Customer</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('cogs.storeCustomer')}}" method="post">
@@ -105,8 +100,9 @@ $user = \Illuminate\Support\Facades\Auth::user();
                     </div>
             </div>
             <div class="modal-footer">
+
+                <button type="submit" class="btn btn-primary">Submit</button>
                 <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
             </form>
         </div>

@@ -3,7 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Cash out Flow</h1>
+        <a href="{{ route('cashflow.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+        <h1 style="padding-left:10px">Cash out Flow</h1>
 
         <div class="section-header-breadcrumb">
             <h1>Project Code : <b>#{{$projects->code}}</b></h1>
@@ -88,7 +89,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Summary Total</h4>
+                        <h4>Direct Cash-out Flow</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -178,7 +179,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>

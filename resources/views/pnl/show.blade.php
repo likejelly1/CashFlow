@@ -3,53 +3,16 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Profit and Loss</h1>
-        <!-- <div class="section-header-breadcrumb">
-<div class="breadcrumb-item active"><a href="{{url ('/cogs/index2')}}">List Project</a></div>
-<div class="breadcrumb-item ">Project Detail</div>
-</div> -->
+        <a href="{{ route('pnl.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+        <h1 style="padding-left:10px">Profit and Loss</h1>
+        
+        <div class="section-header-breadcrumb">
+            <h1>Project Code : <b>#{{$project->code}}</b></h1>
+        </div>
     </div>
-
     <div class="section-body">
         <div class="row">
-            <div class="col-lg-8 col-md-12 col-12 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Summary</h4>
-                    </div>
-                    <div class="card-body">
-                        <div height="182">
-                            <h3>Contract Price</h3>
-                            <h4>Rp {{number_format($contract_price)}}</h4>
-                            <hr>
-                        </div>
-                        <div class="statistic-details mt-sm-4">
-                            <div class="statistic-details-item">
-                                <!-- <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span> 7%</span> -->
-                                <div class="detail-value">Rp {{number_format($total_gross_sales)}}</div>
-                                <div class="detail-name">Quotation</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <!-- <span class="text-muted"><span class="text-danger"><i class="fas fa-caret-down"></i></span> 23%</span> -->
-                                <div class="detail-value">Rp {{number_format($total_negotiation)}}</div>
-                                <div class="detail-name">Negotiation</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <!-- <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span>9%</span> -->
-                                <div class="detail-value">Rp {{number_format($total_nett_sales)}}</div>
-                                <div class="detail-name">Nett Sales</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <!-- <i class="text-muted"><i class="text-primary"><i class="fas fa-caret-up"></i></i> 19%</span> -->
-                                <div class="detail-value">Rp {{number_format($total_nett_sales * 10/100)}}</div>
-                                <div class="detail-name">PPN 10%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-danger">
                         <i class="fa fa-university h4 text-white"></i>
@@ -59,7 +22,76 @@
                             <h4>Client Name</h4>
                         </div>
                         <div class="card-body">
-                            PT Mandiri Taspen tbk
+                            {{$project->customer->institution_name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success">
+                        <i class="far fa-money-bill-alt h2"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Contract Price</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp {{number_format($contract_price)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <h5 class="text-white" style="margin-top:30px">100 <i class="fas fa-percentage"></i></h5>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Gross Profit</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp {{number_format($gross_profit)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <h5 class="text-white" style="margin-top:30px">100 <i class="fas fa-percentage"></i></h5>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Nett Profit</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp {{number_format($nett_profit)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="statistic-details sm-4">
+                            <div class="statistic-details-item">
+                                <div class="detail-value">Rp {{number_format($total_gross_sales)}}</div>
+                                <div class="detail-name">Quotation</div>
+                            </div>
+                            <div class="statistic-details-item">
+                                <div class="detail-value">Rp {{number_format($total_negotiation)}}</div>
+                                <div class="detail-name">Negotiation</div>
+                            </div>
+                            <div class="statistic-details-item">
+                                <div class="detail-value">Rp {{number_format($total_nett_sales)}}</div>
+                                <div class="detail-name">Nett Sales</div>
+                            </div>
+                            <div class="statistic-details-item">
+                                <div class="detail-value">Rp {{number_format($total_nett_sales * 10/100)}}</div>
+                                <div class="detail-name">PPN 10%</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,8 +134,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Total Negotiation: Rp {{number_format($total_negotiation)}}</h4>
-                        <button id="EditNegotiation" class="btn btn-primary text-right"><i class="fas fa-edit"></i> Edit Negotiation</button>
-
+                        <div class="card-header-action">
+                            <button id="EditNegotiation" class="btn btn-danger text-right"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></i></button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -166,7 +199,11 @@
                     <div class="card-header">
                         <h4>Total Cost Sales: Rp {{number_format($total_cost_sales)}}</h4>
                         <div class="card-header-action">
-                            <button id="addCostSales" class="btn btn-primary text-right"><i class="fas fa-edit"></i> Add Or Edit CostSales</button>
+                            <div id="addCostSales" class="btn-group">
+                                <button class="btn btn-danger text-right" data-toggle="tooltip" data-placement="bottom" title="Add"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-danger text-right" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button>
+                            </div>
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -230,7 +267,10 @@
                     <div class="card-header">
                         <h4>Total Commission: Rp {{number_format($total_commissions)}}</h4>
                         <div class="card-header-action">
-                            <button id="addCommission" class="btn btn-primary text-right"><i class="fas fa-edit"></i> Add Or Edit Commission</button>
+                            <div id="addCommission" class="btn-group">
+                                <button class="btn btn-danger text-right"><i class="fas fa-plus" data-toggle="tooltip" data-placement="bottom" title="Add"></i></button>
+                                <button class="btn btn-danger text-right"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></i></button>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -262,7 +302,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Total Sales Commission: Rp {{number_format($total_sales_commission)}}</h4>
-                        <button id="EditSalesCommission" class="btn btn-primary text-right"><i class="fas fa-edit"></i> Edit Sales Commission</button>
+                        <div class="card-header-action">
+                            <button id="EditSalesCommission" class="btn btn-danger text-right"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></i></button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -297,9 +339,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addNegotiationLabel">Negotiation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
             <div class="modal-body">
                 <form id="negotiationForm" action="{{route('pnl.storeNegotiation')}}" method="post">
@@ -324,11 +366,11 @@
                             </div>
                         </div>
                     </div>
-
             </div>
             <div class="modal-footer">
                 <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="savenegotiation" type="submit" class="btn btn-primary">Submit</button>
+
             </div>
             </form>
         </div>
@@ -343,9 +385,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addCostSalesLabel">CostSales</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
             <div class="modal-body">
                 <form id="CostSalesForm" action="{{route('pnl.storeCostSales')}}" method="post">
@@ -382,12 +424,10 @@
                             </div>
                         </div>
                     </div>
-
-
             </div>
             <div class="modal-footer">
-                <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="saveCostSales" type="submit" class="btn btn-primary">Submit</button>
+                <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
             </form>
         </div>
@@ -401,9 +441,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addCommissionLabel">Commission</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
             <div class="modal-body">
                 <form id="CommissionForm" action="{{route('pnl.storeCommission')}}" method="post">
@@ -439,12 +479,10 @@
                             </div>
                         </div>
                     </div>
-
-
             </div>
             <div class="modal-footer">
-                <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="saveCommission" type="submit" class="btn btn-primary">Submit</button>
+                <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
             </form>
         </div>
@@ -485,11 +523,10 @@
                             </div>
                         </div>
                     </div>
-
             </div>
             <div class="modal-footer">
-                <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button id="saveSalesCommission" type="submit" class="btn btn-primary">Submit</button>
+                <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
             </form>
         </div>

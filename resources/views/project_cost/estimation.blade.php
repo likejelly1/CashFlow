@@ -3,14 +3,11 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Estimation Cost</h1>
-        <div class="section-header-button">
-            <button id="createEstimation" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Item</button>
-        </div>
+        <a href="{{ route('pc.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+        <h1 style="padding-left:10px">Estimation Cost</h1>
 
         <div class="section-header-breadcrumb">
             <h1>Project Code : <b>#{{$projects->code}}</b></h1>
-
         </div>
     </div>
     <div class="section-body">
@@ -45,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-danger">
                         <i class="fa fa-university h4 text-white"></i>
@@ -62,15 +59,16 @@
             </div>
         </div>
 
-
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>All Items</h4>
+                        <div class="card-header-action">
+                            <button id="createEstimation" class="btn btn-danger"><i class="fas fa-plus"></i> Add New Item</button>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <!-- <div class="clearfix mb-3"></div> -->
                         <div class="table-responsive">
                             <table id="itemList" class="table table-hover">
                                 <thead>
@@ -100,7 +98,6 @@
                                             <button class="btn btn-icon btn-primary edit" data-id="{{$pc->id}}"><i class="far fa-edit"></i></button>
                                             <button onclick="document.getElementById('destroyform{{$pc->id}}').submit()" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
                                             <button class="btn btn-info btn-icon detail" data-id="{{$pc->id}}"><i class="fa fa-eye"></i></button>
-
                                         </td>
                                     </tr>
                                     <form id="destroyForm{{$pc->id}}" style="display: none;" action="{{route('pc.destroy.estimation', ['id'=> $pc->id])}}" method="POST">
@@ -108,9 +105,7 @@
                                         @csrf
                                     </form>
                                     @endforeach
-
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -126,9 +121,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tambahEstimationModalTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
             <form id="addEstimationForm" action="{{route('pc.store.estimation')}}" method="POST">
                 @csrf
@@ -151,7 +146,6 @@
                             <input id="rate" required type="text" name="rate" class="form-control money">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="section-title">Estimation</div>
                         <small>Quantity, Frequency, Durration</small>
@@ -161,11 +155,10 @@
                             <input id="durration" min="1" required type="number" name="durration" placeholder="Durration" class="form-control col-4">
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" id="saveButton" class="btn btn-primary"></button>
+                    <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -178,9 +171,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addRealizationModalTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
             <form id="addEstimationForm" action="{{route('pc.store.realization')}}" method="POST">
                 @csrf
@@ -208,11 +201,10 @@
                             <input id="rate" required type="text" name="cost" class="form-control money">
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" id="saveRealization" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" id="saveRealization" class="btn btn-primary"></button>
                 </div>
             </form>
         </div>
@@ -226,7 +218,6 @@
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')
             }
         });
-
 
         var table = $('#itemList').DataTable();
 
