@@ -5,7 +5,7 @@
     <div class="section-header">
         <a href="{{ route('pnl.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
         <h1 style="padding-left:10px">Profit and Loss</h1>
-        
+
         <div class="section-header-breadcrumb">
             <h1>Project Code : <b>#{{$project->code}}</b></h1>
         </div>
@@ -45,7 +45,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
-                        <h5 class="text-white" style="margin-top:30px">100 <i class="fas fa-percentage"></i></h5>
+                        <h5 class="text-white" style="margin-top:30px"><i class="fas fa-money-bill-alt"></i></h5>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
@@ -60,7 +60,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
-                        <h5 class="text-white" style="margin-top:30px">100 <i class="fas fa-percentage"></i></h5>
+                        <h5 class="text-white" style="margin-top:30px"><i class="fas fa-money-bill-alt"></i></h5>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
