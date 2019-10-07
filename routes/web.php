@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-   return redirect()->route('home');
+Route::get('/home', function () {
+   return redirect()->route('cogs.index2');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/index2', 'HomeController@index')->name('index2');
 
 
 // route Project Cost

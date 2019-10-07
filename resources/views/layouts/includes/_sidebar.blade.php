@@ -4,7 +4,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
 <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="">Mitra Inti Bersama</a>
+      <a href="">PT. Mitra Inti Bersama</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <a href="">MIB</a>
@@ -12,7 +12,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
     <ul class="sidebar-menu">
       <li class="menu-header">Dashboard</li>
       <li class="{{ Request::is('home*') ? 'active' : '' }}">
-        <a class="nav-link" href="{!! route('home') !!}"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
+        <a class="nav-link" href="{!! route('cogs.project') !!}"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
       </li>
 
       <li class="menu-header">Pages</li>

@@ -11,9 +11,9 @@ class Pnl extends Model
     public function grossProfit($project_id)
     {
         $total_cost_sales = new CostSales();
-        $total_cost_sales = $total_cost_sales->getTotal($project_id)->total_amount;
+        $total_cost_sales = (empty($total_cost_sales->getTotal($project_id))) ? 0 : $total_cost_sales->getTotal($project_id)->total_amount;
         $total_nett_sales = new NettSales();
-        $total_nett_sales = $total_nett_sales->getTotal($project_id)->total_amount;
+        $total_nett_sales = (empty($total_nett_sales->getTotal($project_id))) ? 0 : $total_nett_sales->getTotal($project_id)->total_amount;
         return $total_nett_sales - $total_cost_sales;
     }
 

@@ -32,7 +32,7 @@ class ProjectCost extends Model
         $cs->amount = $this->getTotal($project_id)->total_amount;
         $cs->save();
         $c = Commission::firstOrNew(['item' => 'Sales Commission', 'project_id' => $project_id]);
-        $c->getTotalSalesComissionByPercent(100, $project_id);
+        $c->amount = $c->getTotalSalesCommissionByPercent(100, $project_id);
         $c->percent = 100;
         return $c->save();
     }

@@ -358,7 +358,7 @@
                     <div class="form-group">
                         <label>Negotiation Percent</label>
                         <div class="input-group">
-                            <input readonly id="percent" type="text" name="percent" class="form-control">
+                            <input id="percent" type="text" name="percent" class="form-control">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     %
@@ -506,7 +506,7 @@
                     <input id="project_id" type="hidden" name="project_id" value="{{$project->id}}">
                     <div class="form-group">
                         <div class="section-title">Categories</div>
-                        <select name="category_id" class="form-control select2">
+                        <select name="category_id" class="form-control select2" required>
                             @foreach($sales_commission as $n)
                             <option value="{{$n->category_id}}">{{$n->category->name}}</option>
                             @endforeach
@@ -515,7 +515,7 @@
                     <div class="form-group">
                         <label>SalesCommission Percent</label>
                         <div class="input-group">
-                            <input readonly id="percent" type="text" name="percent" class="form-control">
+                            <input id="percent" type="text" name="percent" class="form-control">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     %

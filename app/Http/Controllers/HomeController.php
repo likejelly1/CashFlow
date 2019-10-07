@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // return view('home');
+        $project = Project::all();
+
+        return view('cogs.index2', compact('project'));
     }
 }

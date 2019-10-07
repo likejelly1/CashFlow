@@ -173,7 +173,7 @@ class CashflowController extends Controller
             ->get();
 
         for ($i = 0; $i < sizeof($surplus); $i++) {
-            if ($surplus[$i]->total_in == 0 && $surplus[$i]->total_out == 0) {
+           if ($surplus[$i]->total_in == 0 && $surplus[$i]->total_out == 0) {
                 $surplus[$i]->total_surp = 0;
             } else {
                 $surplus[$i]->total_surp = $surplus[$i]->total_in - $surplus[$i]->total_out;
