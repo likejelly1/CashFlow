@@ -13,7 +13,6 @@
                     <div class="card-header">
                         <h4>List Project</h4>
                     </div>
-
                     <div class="card-body">
                         <div class="clearfix mb-3"></div>
                         <div class="table-responsive">
@@ -38,7 +37,6 @@
                                         <td>{{ $p->user->name }}</td>
                                         <td>
                                             <a href="{{route('pnl.show', [$p->id])}}" class="btn btn-info"><i class="fas fa-eye"></i> View Statistic</a>
-
                                         </td>
                                     </tr>
                                     @endforeach

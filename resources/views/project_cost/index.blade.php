@@ -11,7 +11,7 @@
       <div class="col-12 col-xs-12">
         <div class="card">
           <div class="card-header">
-            <h4>Our Projects</h4>
+            <h4>Our Project Costs</h4>
           </div>
           <div class="card-body ">
             <div class="clear-fix mb3"></div>

@@ -19,7 +19,7 @@ class CreateInflowTable extends Migration
             $table->string('billing');
             $table->date('execution_date');
             $table->float('percent');
-            $table->bigInteger('net_sales');
+            $table->bigInteger('subtotal');
            
             $table->timestamps();
         });

@@ -7,7 +7,6 @@
         <!-- <div class="section-header-button">
             <button id="createEmloyee" class="btn btn-primary">Add New</button>
         </div> -->
-
     </div>
     <div class="section-body">
         <div class="row mt-4">
@@ -79,7 +78,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="tambahRoleModalTitle"></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             <div class="modal-body">
                 <form action="{{ route('user.storeRole')}}" method="post">
@@ -89,6 +88,7 @@
                         <input type="text" name="nama_role" class="form-control" id="nama_role" placeholder="Enter Role Name">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </form>
             </div>
         </div>
@@ -145,8 +145,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" id="saveButton" class="btn btn-primary"></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>

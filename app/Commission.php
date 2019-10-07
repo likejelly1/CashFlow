@@ -31,7 +31,7 @@ class Commission extends Model
             ->where('categorY_id', 5)
             ->first();
         if ($scp == null) {
-            $scp_amount = 0;
+                $scp_amount = 0;
         } else {
             $scp_amount = $scp->amount;
         }

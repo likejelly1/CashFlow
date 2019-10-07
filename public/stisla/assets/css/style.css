@@ -4332,3 +4332,18 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
         opacity: 0.0;
     }
 }
+
+.btn-circle i {
+    position: relative;
+    top: -1px;
+}
+
+.btn-circle-sm {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+}

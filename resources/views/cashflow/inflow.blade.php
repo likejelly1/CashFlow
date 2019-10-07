@@ -3,12 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Cash in Flow</h1>
-        <!-- <div class="section-header-breadcrumb" style="margin-left:3px; margin-top:10px;">
-            <div class="breadcrumb-item"></div>
-            <div class="breadcrumb-item"><a href="#">Cash Out Flow</a></div>
-            <div class="breadcrumb-item"><a href="#">Realization Summary</a></div>
-        </div> -->
+        <a href="{{ route('cashflow.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+        <h1 style="padding-left:10px">Cash in Flow</h1>
         <div class="section-header-breadcrumb">
             <h1>Project Code : <b>#{{$projects->code}}</b></h1>
         </div>
@@ -54,7 +50,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Cash-in-flow</h4>
+                            <h4>Total Direct Cash-in Flow</h4>
                         </div>
                         <div class="card-body">
                             Rp {{number_format($total)}}
@@ -73,7 +69,6 @@
                         </div>
                         <div class="card-body">
                             {{$projects->customer->institution_name}}
-
                         </div>
                     </div>
                 </div>
@@ -110,9 +105,9 @@
                                         <td>{{$in->billing}}</td>
                                         <td>{{Carbon\Carbon::parse($in->execution_date)->format('M-Y-d')}}</td>
                                         <td>{{$in->percent}}</td>
-                                        <td>{{$in->net_sales}}</td>
+                                        <td>Rp {{number_format($total_nett_sales)}}</td>
                                         <td>
-                                            Rp {{number_format($in->percent*$in->net_sales/100)}}
+                                            Rp {{number_format($in->subtotal)}}
                                         </td>
                                         <td>
                                             <form action="{{ route('cashflow.destroy', $in->id)}}" method="post">
@@ -138,7 +133,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Summary Total</h4>
+                        <h4>Direct Cash-in Flow</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -149,7 +144,6 @@
                                         <th>Bulan</th>
                                         <th>Tahun</th>
                                         <th>Total</th>
-                                        t
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -215,7 +209,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>

@@ -3,27 +3,31 @@
 @section('content')
 <section class="section">
   <div class="section-header">
-    <h1>Summary Project</h1>
+    <a href="{{ route('cogs.project')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+    <h1 style="padding-left:10px">COGS</h1>
     <div class="section-header-breadcrumb">
-      <div class="breadcrumb-item active"><a href="{{ route('cogs.project')}}">List Project</a></div>
-      <div class="breadcrumb-item ">Project Detail</div>
+      <h1>Project Code : <b>#{{$project->code}}</b></h1>
     </div>
   </div>
-  <h4 class="section-title"><span>Project Code : </span>{{ $project->code }}</h4>
 
-  <div class="statistic-details mt-sm-4">
-    <div class="statistic-details-item mt-4">
-      <div class="detail-value" style="color: red;"> Harga Modal :</div>
-      <div class="detail-value" style="color: red;"> Harga Jual :</div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+    <div class="card">
+      <div class="card-body">
+        <div class="statistic-details sm-4">
+          <div class="statistic-details-item mt-4">
+            <div class="detail-value" style="color: red;"> Harga Modal</div>
+            <div class="detail-value" style="color: red;"> Harga Jual</div>
+          </div>
+          @for($i = 0; $i< count($category); $i++) <div class="statistic-details-item">
+            <span class="text-muted">PPN 10%</span>
+            <div class="detail-value">Rp {{number_format($total_harga_modal[$i])}}</div>
+            <div class="detail-value">Rp {{number_format($total_harga_jual[$i])}}</div>
+            <div class="detail-name">{{$category[$i]->name}} Total</div>
+        </div>
+        @endfor
+      </div>
     </div>
-    @for($i = 0; $i< count($category); $i++) <div class="statistic-details-item">
-      <span class="text-muted">PPN 10%</span>
-      <div class="detail-value">Rp {{number_format($total_harga_modal[$i])}}</div>
-      <div class="detail-value">Rp {{number_format($total_harga_jual[$i])}}</div>
-      <div class="detail-name">{{$category[$i]->name}} Total</div>
   </div>
-  @endfor
-
   </div>
 
 
@@ -34,7 +38,7 @@
           <div class="card-header">
             <h4>Project Detail</h4>
             <div class="card-header-action">
-              <button id="addProductCarts" class="btn btn-primary text-right"><i class="fas fa-plus"></i> Add Project Detail</button>
+              <button id="addProductCarts" class="btn btn-danger text-right"><i class="fas fa-plus"></i> Add Project Detail</button>
             </div>
           </div>
           <div class="card-body">
@@ -76,9 +80,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addProjectDetailLabel">Add Project Detail</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
         <form id="productDetailForm" action="{{route('cogs.storeProcart')}}" method="post">
@@ -149,8 +153,8 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button id="saveProductDetail" type="submit" class="btn btn-primary"></button>
+        <button id="closeModalTambah" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
       </form>
     </div>
@@ -163,9 +167,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="tambahProductModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <form id="addProductForm" action="{{route('product.store')}}" method="POST">
         @csrf
@@ -196,8 +200,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" id="saveButton" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </form>
     </div>

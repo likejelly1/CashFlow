@@ -7,7 +7,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
       <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
       <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
     </ul>
-    <div class="search-element">
+    <!-- <div class="search-element">
       <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250" style="width: 250px;">
       <button class="btn" type="submit"><i class="fas fa-search"></i></button>
       <div class="search-backdrop"></div>
@@ -47,10 +47,10 @@ $user = \Illuminate\Support\Facades\Auth::user();
           </a>
         </div>
       </div>
-    </div>
+    </div> -->
   </form>
   <ul class="navbar-nav navbar-right">
-    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+    <!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
       <div class="dropdown-menu dropdown-list dropdown-menu-right">
         <div class="dropdown-header">Messages
           <div class="float-right">
@@ -133,15 +133,15 @@ $user = \Illuminate\Support\Facades\Auth::user();
           <a href="#">View All <i class="fas fa-chevron-right"></i></a>
         </div>
       </div>
-    </li>
+    </li> -->
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
         <img alt="image" src="{{asset('stisla/assets/img/avatar/avatar-1.png')}}" class="rounded-circle mr-1">
         <div class="d-sm-none d-lg-inline-block">Hi, {{$user->name}}</div>
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a href="features-profile.html" class="dropdown-item has-icon">
+        <!-- <a href="features-profile.html" class="dropdown-item has-icon">
           <i class="far fa-user"></i> Profile
-        </a>
+        </a> -->
         <div class="dropdown-divider"></div>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item has-icon text-danger">
           <i class="fas fa-sign-out-alt"></i> Logout

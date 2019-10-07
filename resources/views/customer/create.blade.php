@@ -3,10 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Form New Customer</h1>
-        <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('customer.index')}}">List Customers</a></div>
-        </div>
+        <a href="{{ route('customer.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+        <h1 style="padding-left:10px">Form New Customer</h1>
     </div>
 
     <div class="section-body">

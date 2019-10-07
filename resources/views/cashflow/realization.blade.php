@@ -3,7 +3,8 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Realization Cash Flow</h1>
+        <a href="{{ route('cashflow.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
+        <h1 style="padding-left:10px">Realization Cash Flow</h1>
 
         <div class="section-header-breadcrumb">
             <h1>Project Code : <b>#{{$projects->code}}</b></h1>
@@ -59,7 +60,7 @@
                                         <th>Bulan</th>
                                         <th>Tahun</th>
                                         <th>Total </th>
-                                        <th>Cum Surplus</th>
+                                        <th>Cummulative Surplus</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,7 +69,7 @@
                                         <td>{{$surplus[$i]->month}}</td>
                                         <td>{{$surplus[$i]->year}}</td>
                                         <td>Rp {{number_format($surplus[$i]->total_surp)}}</td>
-                                        <td>{{$cum_surp[$i]}}</td>
+                                        <td>Rp {{number_format($cum_surp[$i])}}</td>
                                         </tr>
                                         @endfor
                                 </tbody>

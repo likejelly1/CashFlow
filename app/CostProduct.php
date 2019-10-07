@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use DB;
 
 use Illuminate\Database\Eloquent\Model;
@@ -18,11 +19,11 @@ class CostProduct extends Model
     }
     public function storeCostSales($project_id)
     {
-        $cs = CostSales::firstOrNew(['item'=> 'Cost Product', 'project_id'=>$project_id]);
+        $cs = CostSales::firstOrNew(['item' => 'Cost Product', 'project_id' => $project_id]);
         $cs->amount = $this->getTotal($project_id)->total_amount;
         $cs->save();
-        $c = Commission::firstOrNew(['item'=>'Sales Commission', 'project_id'=>$project_id]);
-        $c->getTotalSalesComissionByPercent(100, $project_id);
+        $c = Commission::firstOrNew(['item' => 'Sales Commission', 'project_id' => $project_id]);
+        $c->amount = $c->getTotalSalesCommissionByPercent(100, $project_id);
         $c->percent = 100;
         return $c->save();
     }

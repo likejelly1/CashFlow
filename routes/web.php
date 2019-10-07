@@ -59,9 +59,9 @@ Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], func
    Route::post('/storeProject', ['as' => 'storeProject', 'uses' => 'CogsController@store']);
    Route::post('/storeProcart', ['as' => 'storeProcart', 'uses' => 'CogsController@storeProcart']);
    Route::post('/storeCustomer', ['as' => 'storeCustomer', 'uses' => 'CogsController@storeCustomer']);
+   Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CogsController@destroy']);
    Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'CogsController@edit']);
    Route::get('/{id}/getAllProduct', ['as' => 'getProducts', 'uses' => 'CogsController@getAllProduct']);
-   Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CogsController@destroy']);
 });
 
 
