@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Project;
 
 use Illuminate\Http\Request;
 
@@ -23,9 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // return view('home');
         $project = Project::all();
 
-        return view('cogs.index2', compact('project'));
+        return view('home', compact('project'));
+
+        // return view('home');
     }
 }

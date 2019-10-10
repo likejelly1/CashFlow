@@ -11,14 +11,10 @@
 |
 */
 
-Route::get('/home', function () {
-   return redirect()->route('cogs.index2');
-});
-
 Auth::routes();
 
-// Route::get('/index2', 'HomeController@index')->name('index2');
-
+Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'CogsController@index');
 
 // route Project Cost
 Route::group(['prefix' => 'pc', 'as' => 'pc.', 'middleware' => 'auth'], function () {
@@ -96,6 +92,8 @@ Route::group(['prefix' => 'cashflow', 'as' => 'cashflow.', 'middleware' => 'auth
    Route::get('/{out_id}/detail/{proj_id}', ['as' => 'detail', 'uses' => 'CashflowController@detail']);
    Route::post('/store', ['as' => 'store', 'uses' => 'CashflowController@store']);
    Route::post('/storeOut', ['as' => 'storeOut', 'uses' => 'CashflowController@storeOut']);
+   Route::post('/storeEst', ['as' => 'storeEst', 'uses' => 'CashflowController@storeEst']);
+   Route::post('/storeRealCommission', ['as' => 'storeRealCommission', 'uses' => 'CashflowController@storeRealCommission']);
    Route::get('/edit_in/{id}', ['as' => 'edit_in', 'uses' => 'CashflowController@edit_in']);
    Route::put('/update/{id}', ['as' => 'update', 'uses' => 'CashflowController@update']);
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CashflowController@destroy']);

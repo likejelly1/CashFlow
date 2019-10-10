@@ -93,7 +93,7 @@
                                         <th>Billings</th>
                                         <th>Schedule</th>
                                         <th>%</th>
-                                        <th>Net Sales</th>
+                                        <th>Nett Sales</th>
                                         <th>Subtotal</th>
                                         <th>Action</th>
                                     </tr>
@@ -197,7 +197,7 @@
                     <div class="form-group">
                         <label>Percent</label>
                         <div class="input-group">
-                            <input type="number" id="percent" name="percent" step="1" min="0" max="100" class="form-control form-control-md">
+                            <input type="text" id="percent" name="percent" class="form-control form-control-md">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fas fa-percent"></i>

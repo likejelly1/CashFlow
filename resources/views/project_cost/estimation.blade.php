@@ -94,10 +94,10 @@
                                         <td>{{$pc->durration}}</td>
                                         <td id="subtotal{{$pc->id}}">Rp {{number_format($pc->rate*$pc->freq*$pc->durration*$pc->qty)}}</td>
                                         <td>
-                                            <button class="btn btn-icon btn-success add" data-id="{{$pc->id}}"><i class="fa fa-plus"></i></button>
-                                            <button class="btn btn-icon btn-primary edit" data-id="{{$pc->id}}"><i class="far fa-edit"></i></button>
-                                            <button onclick="document.getElementById('destroyform{{$pc->id}}').submit()" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            <button class="btn btn-info btn-icon detail" data-id="{{$pc->id}}"><i class="fa fa-eye"></i></button>
+                                            <button class="btn btn-icon btn-success add" data-id="{{$pc->id}}" data-toggle="tooltip" data-placement="bottom" title="Add"><i class="fa fa-plus"></i></button>
+                                            <button class="btn btn-icon btn-primary edit" data-id="{{$pc->id}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="far fa-edit"></i></button>
+                                            <button onclick="document.getElementById('destroyform{{$pc->id}}').submit()" class="btn btn-icon btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-info btn-icon detail" data-id="{{$pc->id}}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View"></i></button>
                                         </td>
                                     </tr>
                                     <form id="destroyForm{{$pc->id}}" style="display: none;" action="{{route('pc.destroy.estimation', ['id'=> $pc->id])}}" method="POST">

@@ -18,10 +18,17 @@ class Project extends Model
     {
         return $this->hasMany('App\ProjectCost');
     }
-
     public function product_carts()
     {
         return $this->hasMany('App\ProductCart');
+    }
+    public function estimated()
+    {
+        return $this->hasMany('App\Estimated');
+    }
+    public function real_commissions()
+    {
+        return $this->hasMany('App\RealCommission');
     }
     // public function gross_sales()
     // {

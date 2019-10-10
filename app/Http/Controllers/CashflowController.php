@@ -6,6 +6,9 @@ use App\Inflow;
 use App\NettSales;
 use App\Project;
 use App\Outflow;
+use App\Estimated;
+use App\Commission;
+use App\RealCommission;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
@@ -74,6 +77,28 @@ class CashflowController extends Controller
         return redirect()->back();
     }
 
+    public function storeEst(Request $request)
+    {
+       $estimated = new Estimated();
+       $estimated->project_id = $request->project_id;
+       $estimated->percent = $request->percent;
+       $estimated->amount = str_replace(',', '', $request->amount);
+       $estimated->save();
+        return redirect()->back();
+    }
+
+    public function storeRealCommission(Request $request)
+    {
+        $commissions = new Commission();
+        $total_commissions = (empty($commissions->getTotal($request->project_id)->total_amount)) ? 0 : $commissions->getTotal($request->project_id)->total_amount;
+
+        $real_commission = new RealCommission();
+        $real_commission->project_id = $request->project_id;
+        $real_commission->execution_date = $request->execution_date;
+        $real_commission->total = $total_commissions;
+        $real_commission->save();
+        return redirect()->back();
+    }
 
     /**
      * Display the specified resource.
@@ -160,6 +185,13 @@ class CashflowController extends Controller
         $projects = Project::find($id);
         $outflow = Outflow::where('project_id', $id)->get();
         $inflow = Inflow::where('project_id', $id)->get();
+        $estimated = Estimated::where('project_id', $id)->get();
+
+        $real_commission = RealCommission::where('project_id', $id)->get();
+
+        $commissions = Commission::where('project_id', $id)->get();
+        $total_commissions = new Commission();
+        $total_commissions = (empty($total_commissions->getTotal($id))) ? 0 : $total_commissions->getTotal($id)->total_amount;
 
         //total per month surplus
         $surplus = DB::table('inflow')
@@ -175,10 +207,14 @@ class CashflowController extends Controller
         for ($i = 0; $i < sizeof($surplus); $i++) {
            if ($surplus[$i]->total_in == 0 && $surplus[$i]->total_out == 0) {
                 $surplus[$i]->total_surp = 0;
-            } else {
+            } elseif ($surplus[$i]->total_in == 0 && $surplus[$i]->total_out != 0 || $surplus[$i]->total_in != 0 && $surplus[$i]->total_out == 0){
+                $surplus[$i]->total_surp = $surplus[$i]->total_in + $surplus[$i]->total_out;
+            }
+            else {
                 $surplus[$i]->total_surp = $surplus[$i]->total_in - $surplus[$i]->total_out;
             }
         }
+
         // total surplus
         if (!empty($projects->outflow) && !empty($projects->inflow)) {
             $inflowArray = [];
@@ -196,7 +232,8 @@ class CashflowController extends Controller
 
             $total = $totalInflow - $totalOutflow;
         }
-        // total per mont cummulative surplus
+        
+        // total per month cummulative surplus
         for ($i = 0; $i < sizeOf($surplus); $i++) {
             if ($i == 0) {
                 $cum_surp[$i] = $surplus[$i]->total_surp;
@@ -205,7 +242,21 @@ class CashflowController extends Controller
             }
         }
 
-        return view('cashflow.realization', compact('projects', 'outflow', 'inflow', 'surplus', 'total_in', 'total_out', 'total_surp', 'total', 'cum_surp'));
+        // total per month estimated
+        $estimated = DB::table('estimated')
+            ->select(DB::raw('SUM(percent/12*amount) as total_est'))
+            ->where('project_id', $id)
+            ->get();
+
+        for ($i = 0; $i < sizeOf($surplus); $i++) {
+            if ($i == 0) {
+                $sum_est[$i] = $surplus[$i]->total_surp = 0;
+            } else {
+                $sum_est[$i] = $estimated;
+            }
+        }
+
+        return view('cashflow.realization', compact('projects', 'outflow', 'inflow','total_commissions','estimated','real_commission', 'surplus', 'total_in', 'total_out', 'total_surp', 'total', 'cum_surp', 'sum_est'));
     }
 
     // detail cost per description outflow

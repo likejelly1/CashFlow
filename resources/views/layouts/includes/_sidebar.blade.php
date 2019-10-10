@@ -3,16 +3,18 @@ $user = \Illuminate\Support\Facades\Auth::user();
 @endphp
 <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
   <aside id="sidebar-wrapper">
-    <div class="sidebar-brand">
-      <a href="">PT. Mitra Inti Bersama</a>
+    <div class="sidebar-brand mt-4">
+      <div id="circle" class="mx-auto">
+        <img src="{{asset('img/mib_logo.png')}}" class="rounded" alt="PT MIB" style="max-width:100%">
+      </div>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="">MIB</a>
+      <img src="{{asset('img/mib_logo.png')}}" alt="PT MIB" style="max-width:45%">
     </div>
     <ul class="sidebar-menu">
-      <li class="menu-header">Dashboard</li>
+      <li class="menu-header mt-3">Main Page</li>
       <li class="{{ Request::is('home*') ? 'active' : '' }}">
-        <a class="nav-link" href="{!! route('cogs.project') !!}"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
+        <a class="nav-link" href="{!! route('home') !!}"><i class="fas fa-home"></i><span>Home</span></a>
       </li>
 
       <li class="menu-header">Pages</li>
