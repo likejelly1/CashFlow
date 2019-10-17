@@ -22,17 +22,19 @@
             font-size: 8pt;
             text-align: center;
         }
-        p{
+
+        #author {
             font-size: 8pt;
             text-align: center;
-            padding-top: 60px;
+            padding-top: 80px;
         }
+
         /* Create three equal columns that floats next to each other */
         .column {
             float: left;
             border: 1px solid black;
             width: 30%;
-            height: 100px;
+            height: 150px;
             /* Should be removed. Only for demonstration */
         }
 
@@ -140,27 +142,33 @@
         </tbody>
     </table>
 
-    <br><br><br><br><br>
+    <!-- <br><br><br><br><br> -->
 
     <div class="container">
 
         <div class="row">
-            <div class="column" >
+            <div class="column">
                 <div id="title">Sales</div>
-                
-                <p>nama sales</p>
-            </div>
-            <div class="column" >
-
-                <div id="title">Project Manager</div>
-            </div>
-            <div class="column" >
-
-                <div id="title">Finance Controller</div>
+                <hr style="height:1px; border:none; color:#333; background-color:#333;">
+                <div id="author"><u>{{ $user->name }}</u></div>
             </div>
             <div class="column">
+                <div id="title">Project Manager</div>
+                <hr style="height:1px; border:none; color:#333; background-color:#333;">
 
+                <div id="author">---------</div>
+            </div>
+            <div class="column">
+                <div id="title">Finance Controller</div>
+                <hr style="height:1px; border:none; color:#333; background-color:#333;">
+                @if($user->role_id == 3)
+                <div id="author"><u>{{ $user->name }}</u></div>
+                @endif
+            </div>
+            <div class="column">
                 <div id="title">Direktur</div>
+                <hr style="height:1px; border:none; color:#333; background-color:#333;">
+                <div id="author"><u>heii</u></div>
             </div>
         </div>
     </div>

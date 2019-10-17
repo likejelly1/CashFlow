@@ -38,7 +38,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
         <a class="nav-link" href="{!! route('cashflow.index') !!}"><i class="fas fa-chart-line"></i><span>Cashflow</span></a>
       </li>
       @endif
-      @if($user->role_id == 2 || $user->role_id == 1||$user->role_id =7)
+      @if($user->role_id == 2 || $user->role_id == 1||$user->role_id == 7)
       <li class="{{ Request::is('customer*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('customer.index') !!}"><i class="fas fa-users"></i><span>Customer</span></a>
       </li>
@@ -48,7 +48,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
       <li class="{{ Request::is('product*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('product.index') !!}"><i class="fab fa-product-hunt"></i> <span>Product</span></a>
       </li>
-      @if($user->role_id == 7|| $user->role_id =2)
+      @if($user->role_id == 7|| $user->role_id == 2)
       <li class="{{ Request::is('user*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('user.index') !!}"><i class="fas fa-user"></i> <span>Employee</span></a>
       </li>

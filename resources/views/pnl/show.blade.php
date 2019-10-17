@@ -306,7 +306,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6">
-                <h2 class="section-title">Sales Commission by Project</h2>
+                <h2 class="section-title">Pre Sales</h2>
                 <div class="card">
                     <div class="card-header">
                         <h4>Total Sales Commission: Rp {{number_format($total_sales_commission)}}</h4>

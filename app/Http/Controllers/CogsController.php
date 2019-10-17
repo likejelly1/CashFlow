@@ -8,6 +8,7 @@ use App\ProductCart;
 use App\Project;
 use App\Category;
 use App\Customer;
+use App\Role;
 use Auth;
 use Carbon\Carbon;
 use PDF;
@@ -234,6 +235,8 @@ class CogsController extends Controller
         $project = Project::find($id);
         $product = Product::orderBy('categories_id')->get();
         $category = Category::all();
+        $user = Auth::user($id);
+
         for ($i = 0; $i < count($category); $i++) {
             $total_harga_jual[$i] = $this->getTotalJual($i + 1, $id);
             $total_harga_modal[$i] = $this->getTotalModal($i + 1, $id);
@@ -244,7 +247,7 @@ class CogsController extends Controller
             ->where('product_carts.project_id', $id)
             ->get();
             
-        $pdf = PDF::loadview('cogs.cogs_pdf', compact('project','product_carts', 'product','category', 'total_harga_jual', 'total_harga_modal'))->setPaper('a4', 'landscape');
+        $pdf = PDF::loadview('cogs.cogs_pdf', compact('project','product_carts', 'product','category', 'total_harga_jual', 'total_harga_modal','user'))->setPaper('a4', 'landscape');
         return $pdf->stream();
 
         // return view('cogs.cogs_pdf', compact('project', 'product', 'category', 'product_carts', 'total_harga_jual', 'total_harga_modal'));
