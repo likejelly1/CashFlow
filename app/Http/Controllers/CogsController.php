@@ -76,8 +76,8 @@ class CogsController extends Controller
         } else {
             $booking_number = str_pad($lastBooking->id, 4, 0, STR_PAD_LEFT);
         }
-        $replace_item = array('PT', ' ', '.','pt');
-        $customer_name = strtolower(str_replace($replace_item,'', Customer::find($request->customer_id)->name));
+        $replace_item = array('PT', ' ', '.', 'pt');
+        $customer_name = strtolower(str_replace($replace_item,'', Customer::find($request->customer_id)->institution_name));
         $project_code = $customer_name . $booking_number;
 
         $data = new Project();
@@ -86,8 +86,6 @@ class CogsController extends Controller
         $data->customer_id = $request->customer_id;
         $data->user_id = Auth::user()->id;
         $data->save();
-
-
         return redirect()->route('cogs.project');
     }
 
