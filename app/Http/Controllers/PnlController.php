@@ -144,7 +144,7 @@ class PnlController extends Controller
             $percent = $request->percent;
         } elseif ($request->item == 'Admin and Finance Team Commission') {
             $amount = str_replace(',', '', $request->amount);
-            $percent = $cm->getPercentAdmin(str_replace(',', '', $request->amount), $request->project_id);
+            $percent = 0    ;
         } elseif ($request->item = 'Sales Commission') {
             $amount = $cm->getTotalSalesCommissionByPercent($request->percent, $request->project_id);
             $percent = $request->percent;

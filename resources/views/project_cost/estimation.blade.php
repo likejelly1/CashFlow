@@ -95,14 +95,16 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                         <td>{{$pc->freq}}</td>
                                         <td>{{$pc->durration}}</td>
                                         <td id="subtotal{{$pc->id}}">Rp {{number_format($pc->rate*$pc->freq*$pc->durration*$pc->qty)}}</td>
-                                        @if($user->role_id ==3 ||$user->role_id ==7)
                                         <td>
+                                            @if($user->role_id ==3 ||$user->role_id ==7)
                                             <button class="btn btn-icon btn-success add" data-id="{{$pc->id}}"><i class="fa fa-plus"></i></button>
-                                            <button class="btn btn-icon btn-primary edit" data-id="{{$pc->id}}"><i class="far fa-edit"></i></button>
+                                            @endif
+                                            @if($user->role_id == 1||$user->role_id == 6 ||$user->role_id ==7||)
                                             <button onclick="document.getElementById('destroyform{{$pc->id}}').submit()" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-icon btn-primary edit" data-id="{{$pc->id}}"><i class="far fa-edit"></i></button>
+                                            @endif
                                             <button class="btn btn-info btn-icon detail" data-id="{{$pc->id}}"><i class="fa fa-eye"></i></button>
                                         </td>
-                                        @endif
                                     </tr>
                                     <form id="destroyForm{{$pc->id}}" style="display: none;" action="{{route('pc.destroy.estimation', ['id'=> $pc->id])}}" method="POST">
                                         @method('DELETE')

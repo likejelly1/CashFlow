@@ -14,9 +14,8 @@ $user = \Illuminate\Support\Facades\Auth::user();
       <li class="{{ Request::is('home*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('cogs.project') !!}"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
       </li>
-
       <li class="menu-header">Pages</li>
-      @if($user->role_id ==7|| $user->role_id == 1)
+      @if($user->role_id ==7|| $user->role_id == 1|| $user->role_id == 3)
       <li class="{{ Request::is('cogs*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('cogs.project') !!}"><i class="fas fa-comment-dollar"></i><span>COGS</span></a>
       </li>
