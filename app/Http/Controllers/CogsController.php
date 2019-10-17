@@ -70,14 +70,13 @@ class CogsController extends Controller
     {
         $lastBooking = Project::orderBy('created_at', 'desc')->first();
         if (!$lastBooking) {
-            $booking_number = str_pad(0, 5, 0, STR_PAD_LEFT);
+            $booking_number = str_pad(0, 4, 0, STR_PAD_LEFT);
         } else {
-            $booking_number = str_pad($lastBooking->id - 1, 5, 0, STR_PAD_LEFT);
+            $booking_number = str_pad($lastBooking->id, 4, 0, STR_PAD_LEFT);
         }
-        $tgl = Carbon::now()->format('ym');
-        $projectname = strtoupper(substr($request->name, 0, 3));
-
-        $project_code = $projectname . $tgl . $booking_number;
+        $replace_item = array('PT', ' ', '.','pt');
+        $customer_name = strtolower(str_replace($replace_item,'', Customer::find($request->customer_id)->name));
+        $project_code = $customer_name . $booking_number;
 
         $data = new Project();
         $data->code = $project_code;

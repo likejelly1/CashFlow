@@ -1,6 +1,8 @@
 @extends('layouts.master')
-
 @section('content')
+@php
+$user = \Illuminate\Support\Facades\Auth::user();
+@endphp
 <section class="section">
     <div class="section-header">
         <a href="{{ route('pnl.index')}}" class="btn btn-danger btn-circle-sm m-1"><i class="fas fa-chevron-left"></i></a>
@@ -134,9 +136,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Total Negotiation: Rp {{number_format($total_negotiation)}}</h4>
+                        @if($user->role_id == 1 || $user->role_id == 7)
                         <div class="card-header-action">
                             <button id="EditNegotiation" class="btn btn-danger text-right"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></i></button>
                         </div>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -198,6 +202,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Total Cost Sales: Rp {{number_format($total_cost_sales)}}</h4>
+                        @if($user->role_id == 3 || $user->role_id == 7)
                         <div class="card-header-action">
                             <div id="addCostSales" class="btn-group">
                                 <button class="btn btn-danger text-right" data-toggle="tooltip" data-placement="bottom" title="Add"><i class="fas fa-plus"></i></button>
@@ -205,6 +210,7 @@
                             </div>
 
                         </div>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -266,12 +272,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Total Commission: Rp {{number_format($total_commissions)}}</h4>
+                        @if($user->role_id == 3 || $user->role_id == 7)
                         <div class="card-header-action">
                             <div id="addCommission" class="btn-group">
                                 <button class="btn btn-danger text-right"><i class="fas fa-plus" data-toggle="tooltip" data-placement="bottom" title="Add"></i></button>
                                 <button class="btn btn-danger text-right"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></i></button>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -302,9 +310,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Total Sales Commission: Rp {{number_format($total_sales_commission)}}</h4>
+                        @if($user->role_id == 3 || $user->role_id == 7)
                         <div class="card-header-action">
                             <button id="EditSalesCommission" class="btn btn-danger text-right"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit"></i></button>
                         </div>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
