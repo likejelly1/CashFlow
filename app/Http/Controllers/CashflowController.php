@@ -243,18 +243,18 @@ class CashflowController extends Controller
         }
 
         // total per month estimated
-        $estimated = DB::table('estimated')
-            ->select(DB::raw('SUM(percent/12*amount) as total_est'))
-            ->where('project_id', $id)
-            ->get();
+        // $estimated = DB::table('estimated')
+        //     ->select(DB::raw('SUM(percent/12*amount) as total_est'))
+        //     ->where('project_id', $id)
+        //     ->get();
 
-        for ($i = 0; $i < sizeOf($surplus); $i++) {
-            if ($i == 0) {
-                $sum_est[$i] = $surplus[$i]->total_surp = 0;
-            } else {
-                $sum_est[$i] = $estimated;
-            }
-        }
+        // for ($i = 0; $i < sizeOf($surplus); $i++) {
+        //     if ($i == 0) {
+        //         $sum_est[$i] = $surplus[$i]->total_surp = 0;
+        //     } else {
+        //         $sum_est[$i] = $surplus[$i]->total_est;
+        //     }
+        // }
 
         return view('cashflow.realization', compact('projects', 'outflow', 'inflow','total_commissions','estimated','real_commission', 'surplus', 'total_in', 'total_out', 'total_surp', 'total', 'cum_surp', 'sum_est'));
     }

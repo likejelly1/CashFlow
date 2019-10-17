@@ -13,7 +13,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
     </div>
     <ul class="sidebar-menu">
       <li class="menu-header mt-3">Main Page</li>
-      <li class="{{ Request::is('home*') ? 'active' : '' }}">
+      <li class="{{ Request::is('/*') ? 'active' : '' }}">
         <a class="nav-link" href="{!! route('home') !!}"><i class="fas fa-home"></i><span>Home</span></a>
       </li>
 

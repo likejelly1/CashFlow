@@ -58,6 +58,7 @@ Route::group(['prefix' => 'cogs', 'as' => 'cogs.', 'middleware' => 'auth'], func
    Route::delete('/{id}', ['as' => 'destroy', 'uses' => 'CogsController@destroy']);
    Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'CogsController@edit']);
    Route::get('/{id}/getAllProduct', ['as' => 'getProducts', 'uses' => 'CogsController@getAllProduct']);
+   Route::get('/cetak_pdf/{id}', ['as' => 'cetak_pdf', 'uses' => 'CogsController@cetak_pdf']);
 });
 
 

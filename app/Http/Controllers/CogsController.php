@@ -10,6 +10,7 @@ use App\Category;
 use App\Customer;
 use Auth;
 use Carbon\Carbon;
+use PDF;
 use DB;
 
 class CogsController extends Controller
@@ -229,6 +230,25 @@ class CogsController extends Controller
             $total = 0;
         }
         return $total;
+    }
+    public function cetak_pdf($id){
+        $project = Project::find($id);
+        $product = Product::orderBy('categories_id')->get();
+        $category = Category::all();
+        for ($i = 0; $i < count($category); $i++) {
+            $total_harga_jual[$i] = $this->getTotalJual($i + 1, $id);
+            $total_harga_modal[$i] = $this->getTotalModal($i + 1, $id);
+        }
+        $product_carts = DB::table('product_carts')
+            ->select('product_carts.id as id', 'product_carts.qty as qty', 'product_carts.price_list_satuan as price_list_satuan', 'product_carts.price_list_total as price_list_total', 'product_carts.discount_pl as discount_pl', 'product_carts.grossup_pl as grossup_pl', 'product_carts.harga_satuan_modal as harga_satuan_modal', 'product_carts.harga_total_modal as harga_total_modal', 'product_carts.discount_jual as discount_jual', 'product_carts.grossup_jual as grossup_jual', 'product_carts.harga_satuan_jual as harga_satuan_jual', 'product_carts.harga_total_jual as harga_total_jual', 'product_carts.satuan as satuan', 'products.name as name')
+            ->join('products', 'product_carts.product_id', 'products.id')
+            ->where('product_carts.project_id', $id)
+            ->get();
+            
+        $pdf = PDF::loadview('cogs.cogs_pdf', compact('project','product_carts', 'product','category', 'total_harga_jual', 'total_harga_modal'))->setPaper('a4', 'landscape');
+        return $pdf->stream();
+
+        // return view('cogs.cogs_pdf', compact('project', 'product', 'category', 'product_carts', 'total_harga_jual', 'total_harga_modal'));
     }
     public function destroy($id)
     {

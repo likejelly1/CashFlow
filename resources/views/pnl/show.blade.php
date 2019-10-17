@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-12 col-sm-12 col-lg-4">
                 <h2 class="section-title">Nett Sales</h2>
                 <div class="card">
                     <div class="card-header">

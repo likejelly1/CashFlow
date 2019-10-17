@@ -9,7 +9,7 @@
       <h1>Project Code : <b>#{{$project->code}}</b></h1>
     </div>
   </div>
-
+  <a href="{{route('cogs.cetak_pdf', [ 'id' => $project->id ])}}" class="btn btn-primary" target="_blank">CETAK PDF</a>
   <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
     <div class="card">
       <div class="card-body">
@@ -209,6 +209,7 @@
 </div>
 
 @section('script.js')
+
 <script>
   $(document).ready(function() {
     $('.table').DataTable();

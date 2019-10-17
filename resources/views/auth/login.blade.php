@@ -26,6 +26,7 @@
         <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
           <div class="p-4 m-3">
             <img src="{{asset('img/mib_logo.png')}}" alt="logo" width="80" class="shadow-light rounded mb-5 mt-2">
+            <!-- <h5 class="font-weight-normal mb-5" style="color:red">PT. Mitra Inti Bersama</h5> -->
             <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold text-danger">MIB APP</span></h4>
             <hr>
             <!-- <p class="text-muted">Before you get started, you must login or register to the Admin if you don't already have an account.</p> -->

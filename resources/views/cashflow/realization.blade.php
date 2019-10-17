@@ -12,7 +12,7 @@
     </div>
     <div class="section-body">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-success">
                         <i class="fa fa-university h4 text-white"></i>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
                         <i class="far fa-money-bill-alt h2"></i>
@@ -42,17 +42,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-
-                   
-                    
-                </div>
-            </div>
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h4>Surplus (Shortage)</h4>
@@ -70,7 +63,6 @@
                                         <th>Tahun</th>
                                         <th>Total </th>
                                         <th>Cummulative Surplus</th>
-                                        <th>Estimated</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,7 +72,6 @@
                                         <td>{{$surplus[$i]->year}}</td>
                                         <td>Rp {{number_format($surplus[$i]->total_surp)}}</td>
                                         <td>Rp {{number_format($cum_surp[$i])}}</td>
-                                        <td></td>
                                         </tr>
                                         @endfor
                                 </tbody>
@@ -89,10 +80,8 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row mt-4">
-            <div class="col-12">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h4>Sales Commission</h4>
@@ -112,8 +101,8 @@
                                 <tbody>
                                     @foreach($real_commission as $real)
                                     <tr>
-                                        <td>{{$real->execution_date}}</td>
-                                        <td>{{$real->total}}</td>
+                                        <td>{{Carbon\Carbon::parse($real->execution_date)->format('M-Y-d')}}</td>
+                                        <td>Rp {{number_format($real->total)}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -196,6 +185,17 @@
                                 </div>
                             </div>
                             <input name="execution_date" type="date" class="form-control daterange-cus">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    Rp
+                                </div>
+                                <input value="{{number_format($total_commissions)}}" type="text" name="total" class="form-control form-control-lg" disabled>
+                            </div>
                         </div>
                     </div>
                 </div>
