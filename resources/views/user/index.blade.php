@@ -71,6 +71,7 @@
 
 
 <!-- Modal  -->
+
 <!-- Add role popup -->
 <div class="modal fade" id="tambahRoleModal" role="dialog">
     <div class="modal-dialog">
@@ -178,11 +179,15 @@
         $('#itemList').DataTable();
         // add modal
         $('#createEmployee').click(function(e) {
-            $('#saveButton').html("Create Employee");
             $('#addEmployeeForm').trigger("reset");
             $('#tambahEmployeeModalLongTitle').html("Add Employee");
-            $('#tambahRoleModalTitle').html("Add Role");
             $('#tambahEmployeeModalLong').modal('show');
+            $('#saveButton').html("Create Employee");
+        });
+        $('#addRole').click(function(e) {
+            e.preventDefault();
+
+            $('#tambahRoleModalTitle').html("Add Role");
             $('#tambahRoleModal').modal('show');
         });
 
